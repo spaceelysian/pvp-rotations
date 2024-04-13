@@ -1,5 +1,5 @@
 namespace DefaultRotations.Tank;
-[Rotation("gnb-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("war-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
 public sealed class WARPvP : WarriorRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
@@ -8,18 +8,14 @@ public sealed class WARPvP : WarriorRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(out IAction? act)
+    protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-
-        if (BloodwhettingPvP.CanUse(out act)) return true;
-        if (OrogenyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (OnslaughtPvP.CanUse(out act)) return true;
-        return base.AttackAbility(out act);
-    }
 
+        return base.AttackAbility(nextGCD, out act);
+    }
     protected override bool GeneralGCD(out IAction? act)
     {
-        if (ChaoticCyclonePvP.CanUse(out act)) return true;
 
         if (PrimalRendPvP.CanUse(out act)) return true;
 

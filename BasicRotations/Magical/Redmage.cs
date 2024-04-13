@@ -9,12 +9,11 @@ public class RDMPvP : RedMageRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(out IAction? act)
+    protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        return base.AttackAbility(out act);
+        return base.AttackAbility(nextGCD, out act);
     }
-
     protected override bool GeneralGCD(out IAction? act)
     {
 
