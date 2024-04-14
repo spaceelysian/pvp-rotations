@@ -1,5 +1,4 @@
 namespace DefaultRotations.Magical;
-
 [Rotation("rdm-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
 public class RDMPvP : RedMageRotation
 {
@@ -13,6 +12,11 @@ public class RDMPvP : RedMageRotation
     {
 
         return base.AttackAbility(nextGCD, out act);
+    }
+    protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
+    {
+
+        return base.GeneralAbility(nextGCD, out act);
     }
     protected override bool GeneralGCD(out IAction? act)
     {

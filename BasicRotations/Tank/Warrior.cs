@@ -43,4 +43,5 @@ public sealed class WARPvP : WarriorRotation
         return base.GeneralGCD(out act);
 
     }
+
 }

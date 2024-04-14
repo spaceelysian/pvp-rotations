@@ -9,14 +9,27 @@ public class PLDPvP : PaladinRotation
     }
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+
         if (ShieldBashPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
+    protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
+    {
+
+        if (HolySheltronPvP.CanUse(out act)) return true;
+
+        return base.GeneralAbility(nextGCD, out act);
+    }
 
     protected override bool GeneralGCD(out IAction? act)
     {
-        if (ConfiteorPvP.CanUse(out act, skipAoeCheck:true)) return true;
+
+        if (BladeOfValorPvP.CanUse(out act)) return true;
+        if (BladeOfTruthPvP.CanUse(out act)) return true;
+        if (BladeOfFaithPvP.CanUse(out act)) return true;
+
+        if (ConfiteorPvP.CanUse(out act)) return true;
 
         if (RoyalAuthorityPvP.CanUse(out act)) return true;
         if (RiotBladePvP.CanUse(out act)) return true;

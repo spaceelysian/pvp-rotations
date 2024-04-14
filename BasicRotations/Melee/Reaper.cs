@@ -1,5 +1,4 @@
 ﻿namespace DefaultRotations.Melee;
-
 [Rotation("Reaper-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP Skills")]
 public sealed class RPRPvP : ReaperRotation
 {
@@ -14,7 +13,11 @@ public sealed class RPRPvP : ReaperRotation
 
         return base.AttackAbility(nextGCD, out act);
     }
+    protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
+    {
 
+        return base.GeneralAbility(nextGCD, out act);
+    }
     protected override bool GeneralGCD(out IAction? act)
     {
 
