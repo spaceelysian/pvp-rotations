@@ -1,5 +1,3 @@
-using Newtonsoft.Json.Linq;
-
 namespace DefaultRotations.Healer;
 
 [Rotation("sch-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
