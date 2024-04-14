@@ -6,6 +6,7 @@ public class SCHPvP : ScholarRotation
     {
 
         if (AdloquiumPvP.CanUse(out act)) return true;
+
         if (DeploymentTacticsPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);

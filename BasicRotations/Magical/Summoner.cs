@@ -14,8 +14,11 @@ public class SMNPvP : SummonerRotation
     {
 
         if (FesterPvP.CanUse(out act)) return true;
+
         if (MountainBusterPvP.CanUse(out act)) return true;
+
         if (EnkindleBahamutPvP.CanUse(out act)) return true;
+
         if (EnkindlePhoenixPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
