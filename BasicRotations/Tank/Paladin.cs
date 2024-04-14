@@ -5,12 +5,15 @@ public class PLDPvP : PaladinRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (GuardianPvP.CanUse(out act)) return true;
+
         return base.EmergencyAbility(nextGCD, out act);
     }
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
         if (ShieldBashPvP.CanUse(out act)) return true;
+        if (IntervenePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -25,11 +28,11 @@ public class PLDPvP : PaladinRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (BladeOfValorPvP.CanUse(out act)) return true;
-        if (BladeOfTruthPvP.CanUse(out act)) return true;
-        if (BladeOfFaithPvP.CanUse(out act)) return true;
+        if (BladeOfValorPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BladeOfTruthPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BladeOfFaithPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BladeOfFaithReady)) return true;
 
-        if (ConfiteorPvP.CanUse(out act)) return true;
+        if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (RoyalAuthorityPvP.CanUse(out act)) return true;
         if (RiotBladePvP.CanUse(out act)) return true;
