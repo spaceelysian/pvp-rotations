@@ -1,5 +1,5 @@
 namespace DefaultRotations.Healer;
-[Rotation("ast-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Ast-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class ASTPvP : AstrologianRotation
 { 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
@@ -42,7 +42,9 @@ public class ASTPvP : AstrologianRotation
 
         if (FallMaleficPvP.CanUse(out act)) return true;
 
-        if (AspectedBeneficPvP.CanUse(out act)) return true;
+        if (Player.CurrentHp < Player.MaxHp && AspectedBeneficPvP.CanUse(out act)) return true;
+
+        if (AspectedBeneficPvP.CanUse(out act) && AspectedBeneficPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
 
         return base.GeneralGCD(out act);
 
