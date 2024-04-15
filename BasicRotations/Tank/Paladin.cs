@@ -2,10 +2,11 @@
 [Rotation("pld-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
 public class PLDPvP : PaladinRotation
 {
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (GuardianPvP.CanUse(out act)) return true;
+        if (GuardianPvP.Target.Target?.GetHealthRatio() < 0.3 && GuardianPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -13,7 +14,8 @@ public class PLDPvP : PaladinRotation
     {
 
         if (ShieldBashPvP.CanUse(out act)) return true;
-        if (IntervenePvP.CanUse(out act)) return true;
+
+        //if (IntervenePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -27,10 +29,6 @@ public class PLDPvP : PaladinRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
-
-        if (BladeOfValorPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (BladeOfTruthPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (BladeOfFaithPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BladeOfFaithReady)) return true;
 
         if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

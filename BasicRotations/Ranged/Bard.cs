@@ -5,11 +5,22 @@ public sealed class BRDPvP : BardRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (Player.HasStatus(true, StatusID.Stun))
+        {
+            if (TheWardensPaeanPvP.CanUse(out act)) return true;
+        }
+
         return base.EmergencyAbility(nextGCD, out act);
     }
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        if (EmpyrealArrowPvP.CanUse(out act)) return true;
+
+        if (Player.HasStatus(true, StatusID.FrontlineForte))
+        {
+            if (EmpyrealArrowPvP.Cooldown.CurrentCharges == 3 && EmpyrealArrowPvP.CanUse(out act)) return true;
+        }
+
+        if (SilentNocturnePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }

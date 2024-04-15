@@ -14,6 +14,7 @@ public sealed class WARPvP : WarriorRotation
         // if (BlotaPvP.CanUse(out act)) return true;
 
         if (OrogenyPvP.CanUse(out act)) return true;
+
         if (OnslaughtPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);

@@ -4,22 +4,30 @@ public sealed class DRKPvP : DarkKnightRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        if (TheBlackestNightPvP.CanUse(out act)) return true;
+
+        if (Player.CurrentHp < Player.MaxHp && TheBlackestNightPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
-
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (SaltedEarthPvP.CanUse(out act)) return true;
-        if (SaltAndDarknessPvP.CanUse(out act)) return true;
         if (PlungePvP.CanUse(out act)) return true;
+
+        if (IsLastAbility((ActionID)PlungePvP.ID) && SaltedEarthPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
+
+        if (IsLastAbility((ActionID)SaltedEarthPvP.ID) && SaltAndDarknessPvP.CanUse(out act)) return true;
+
+        if (Player.HasStatus(true, StatusID.DarkArts_3034) && ShadowbringerPvP_29738.CanUse(out act)) return true;
+
+
 
         return base.AttackAbility(nextGCD, out act);
     }
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+
+        if (TheBlackestNightPvP.Target.Target?.GetHealthRatio() < 0.9 && TheBlackestNightPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
