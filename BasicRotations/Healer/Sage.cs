@@ -20,13 +20,16 @@ public class SGEPvP : SageRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (EukrasiaPvP.CanUse(out act)) return true;
+
+
         return base.GeneralAbility(nextGCD, out act);
 
     }
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (PneumaPvP.CanUse(out act)) return true;
+        if (PneumaPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (PhlegmaIiiPvP.CanUse(out act)) return true;
 
