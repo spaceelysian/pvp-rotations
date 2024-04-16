@@ -13,14 +13,10 @@ public class WHM : WhiteMageRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        //if (SeraphStrikePvP.CanUse(out act)) return true;
-
         return base.AttackAbility(nextGCD, out act);
     }
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
-
-        //if (MiracleOfNaturePvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

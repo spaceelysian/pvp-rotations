@@ -5,7 +5,7 @@ public class DRGPvP : DragoonRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (HorridRoarPvP.CanUse(out act)) return true;
+        if (HasHostilesInRange && HorridRoarPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -13,17 +13,15 @@ public class DRGPvP : DragoonRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (HighJumpPvP.CanUse(out act)) return true;
+
         if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
-        //if (HighJumpPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
-
-        //if (ElusiveJumpPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

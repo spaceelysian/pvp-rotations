@@ -15,7 +15,7 @@ public class SMNPvP : SummonerRotation
 
         if (FesterPvP.CanUse(out act) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
 
-        if (MountainBusterPvP.CanUse(out act)) return true;
+        if (MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (EnkindleBahamutPvP.CanUse(out act)) return true;
 
@@ -33,10 +33,12 @@ public class SMNPvP : SummonerRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (SlipstreamPvP.CanUse(out act)) return true;
+        if (SlipstreamPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        //if (CrimsonCyclonePvP.CanUse(out act)) return true;
-        //if (CrimsonStrikePvP.CanUse(out act)) return true;
+        if (CrimsonCyclonePvP.IsInCooldown && CrimsonStrikePvP.IsInCooldown && RuinIiiPvP.CanUse(out act)) return true;
+
+        if (CrimsonCyclonePvP.CanUse(out act, skipCastingCheck: true, skipClippingCheck: true, skipAoeCheck: true)) return true;
+        if (CrimsonStrikePvP.CanUse(out act, skipCastingCheck: true, skipClippingCheck: true, skipAoeCheck: true)) return true;
 
         if (RuinIiiPvP.CanUse(out act)) return true;
 

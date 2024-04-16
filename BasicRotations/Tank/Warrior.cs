@@ -13,6 +13,7 @@ public sealed class WARPvP : WarriorRotation
     {
 
         if (OrogenyPvP.CanUse(out act)) return true;
+        if (OnslaughtPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
 
@@ -28,7 +29,7 @@ public sealed class WARPvP : WarriorRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (Player.HasStatus(true, StatusID.Bloodwhetting_3030) && PrimalRendPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.Bloodwhetting_3030) && PrimalRendPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (ChaoticCyclonePvP.CanUse(out act)) return true;
 

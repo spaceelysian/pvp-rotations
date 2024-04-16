@@ -5,6 +5,9 @@ public class NINPvP : NinjaRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (ShukuchiPvP.CanUse(out act)) return true;
+
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 

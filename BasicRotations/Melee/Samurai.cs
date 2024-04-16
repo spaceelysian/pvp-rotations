@@ -6,6 +6,7 @@ public class SAMPvP : SamuraiRotation
     {
 
         if (MeikyoShisuiPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if (HissatsuSotenPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

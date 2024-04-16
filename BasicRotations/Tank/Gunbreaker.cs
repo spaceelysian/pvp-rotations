@@ -10,11 +10,6 @@ public sealed class GNBPvP : GunbreakerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        //if (ContinuationPvP.CanUse(out act)) return true;
-
-        //if (EyeGougePvP_29114.CanUse(out act) && Player.HasStatus(true, StatusID.ReadyToGouge_2004)) return true;
-        //if (AbdomenTearPvP_29113.CanUse(out act) && Player.HasStatus(true, StatusID.ReadyToTear_2003)) return true;
-        //if (JugularRipPvP_29112.CanUse(out act) && Player.HasStatus(true, StatusID.ReadyToRip_2002)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
