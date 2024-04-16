@@ -1,5 +1,5 @@
 ﻿namespace DefaultRotations.Magical;
-[Rotation("smn-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Smn-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class SMNPvP : SummonerRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

@@ -1,5 +1,5 @@
 namespace DefaultRotations.Tank;
-[Rotation("drk-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Drk-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public sealed class DRKPvP : DarkKnightRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

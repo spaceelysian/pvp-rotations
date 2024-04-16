@@ -1,7 +1,5 @@
-﻿using RotationSolver.Basic.Data;
-
-namespace DefaultRotations.Melee;
-[Rotation("sam-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+﻿namespace DefaultRotations.Melee;
+[Rotation("Sam-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class SAMPvP : SamuraiRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

@@ -1,5 +1,5 @@
 namespace DefaultRotations.Ranged;
-[Rotation("dnc-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Dnc-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class DNCPvP : DancerRotation
 {
 

@@ -1,5 +1,5 @@
 namespace DefaultRotations.Ranged;
-[Rotation("brd-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Brd-pvp", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public sealed class BRDPvP : BardRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

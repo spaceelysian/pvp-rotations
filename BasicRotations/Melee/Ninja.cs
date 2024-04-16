@@ -1,5 +1,5 @@
 namespace DefaultRotations.Melee;
-[Rotation("nin-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Nin-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class NINPvP : NinjaRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

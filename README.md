@@ -2,4 +2,4 @@
 
 For Manual Mode! 
 
-Use Conditionals under Actions tab to optimize any rotation. These are basic.
+These are basic. Use Conditionals under Actions tab to optimize any rotation. 

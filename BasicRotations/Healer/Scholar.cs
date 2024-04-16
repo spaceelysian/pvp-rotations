@@ -1,5 +1,5 @@
 namespace DefaultRotations.Healer;
-[Rotation("sch-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Sch-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class SCHPvP : ScholarRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

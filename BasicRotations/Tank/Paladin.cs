@@ -1,5 +1,5 @@
 ﻿namespace DefaultRotations.Tank;
-[Rotation("pld-pvp", CombatType.PvP, GameVersion = "6.58", Description = "pvp skills")]
+[Rotation("Pld-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 public class PLDPvP : PaladinRotation
 {
 
