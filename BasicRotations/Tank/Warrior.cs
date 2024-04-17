@@ -1,5 +1,7 @@
 namespace DefaultRotations.Tank;
 [Rotation("War-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public sealed class WARPvP : WarriorRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

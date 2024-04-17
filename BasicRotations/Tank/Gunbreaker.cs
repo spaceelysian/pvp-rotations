@@ -1,5 +1,7 @@
 namespace DefaultRotations.Tank;
 [Rotation("Gnb-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public sealed class GNBPvP : GunbreakerRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

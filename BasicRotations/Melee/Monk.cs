@@ -1,5 +1,7 @@
 ﻿namespace DefaultRotations.Melee;
 [Rotation("Mnk-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public sealed class MNKPvP : MonkRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

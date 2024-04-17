@@ -1,5 +1,7 @@
 namespace DefaultRotations.Healer;
 [Rotation("Sge-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public class SGEPvP : SageRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

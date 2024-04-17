@@ -1,5 +1,7 @@
 ﻿namespace DefaultRotations.Melee;
 [Rotation("Rpr-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public sealed class RPRPvP : ReaperRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

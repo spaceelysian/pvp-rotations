@@ -1,5 +1,7 @@
 namespace DefaultRotations.Healer;
 [Rotation("Ast-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public class ASTPvP : AstrologianRotation
 { 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

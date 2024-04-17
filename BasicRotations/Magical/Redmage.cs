@@ -1,5 +1,7 @@
 namespace DefaultRotations.Magical;
 [Rotation("Rdm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Api(1)]
+
 public class RDMPvP : RedMageRotation
 {
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
