@@ -7,6 +7,7 @@ public class BLMPvP : BlackMageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     { 
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 

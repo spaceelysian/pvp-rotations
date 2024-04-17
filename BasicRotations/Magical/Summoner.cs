@@ -32,6 +32,7 @@ public class SMNPvP : SummonerRotation
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 

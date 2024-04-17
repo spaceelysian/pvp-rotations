@@ -8,7 +8,6 @@ public sealed class WARPvP : WarriorRotation
     {
 
         return base.EmergencyAbility(nextGCD, out act);
-
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
@@ -18,7 +17,6 @@ public sealed class WARPvP : WarriorRotation
         if (OnslaughtPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
-
     }
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
@@ -26,7 +24,6 @@ public sealed class WARPvP : WarriorRotation
         if (BloodwhettingPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
 
         return base.GeneralAbility(nextGCD, out act);
-
     }
     protected override bool GeneralGCD(out IAction? act)
     {
@@ -40,7 +37,6 @@ public sealed class WARPvP : WarriorRotation
         if (HeavySwingPvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
-
     }
 
 }

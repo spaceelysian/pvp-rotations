@@ -22,11 +22,13 @@ public class DRGPvP : DragoonRotation
 
         return base.AttackAbility(nextGCD, out act);
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 

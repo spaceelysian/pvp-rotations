@@ -22,10 +22,9 @@ public sealed class DRKPvP : DarkKnightRotation
 
         if (Player.HasStatus(true, StatusID.DarkArts_3034) && ShadowbringerPvP_29738.CanUse(out act, skipAoeCheck: true)) return true;
 
-
-
         return base.AttackAbility(nextGCD, out act);
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
@@ -33,6 +32,7 @@ public sealed class DRKPvP : DarkKnightRotation
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 

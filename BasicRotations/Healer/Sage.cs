@@ -8,7 +8,6 @@ public class SGEPvP : SageRotation
     {
 
         return base.EmergencyAbility(nextGCD, out act);
-
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
@@ -17,17 +16,16 @@ public class SGEPvP : SageRotation
         if (ToxikonPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
-
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
         if (EukrasiaPvP.CanUse(out act)) return true;
 
-
         return base.GeneralAbility(nextGCD, out act);
-
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 
@@ -38,6 +36,5 @@ public class SGEPvP : SageRotation
         if (DosisIiiPvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
-
     }
 }

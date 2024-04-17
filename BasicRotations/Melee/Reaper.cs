@@ -22,11 +22,13 @@ public sealed class RPRPvP : ReaperRotation
 
         return base.AttackAbility(nextGCD, out act);
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 
@@ -34,25 +36,6 @@ public sealed class RPRPvP : ReaperRotation
         {
             if (LemuresSlicePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-
-
-        if (Player.HasStatus(true, StatusID.Enshrouded_2863))
-        {
-            act = null;
-            if (Player.StatusStack(true, StatusID.Enshrouded_2863) == 1 || Player.WillStatusEnd(4, true, StatusID.Enshrouded_2863))
-            {
-                if (CommunioPvP.CanUse(out act, skipAoeCheck: true)) return true;
-            }
-            if (Player.StatusStack(true, StatusID.Enshrouded_2863) > 1)
-            {
-                if (VoidReapingPvP.CanUse(out act)) return true;
-                if (CrossReapingPvP.CanUse(out act)) return true;
-            }
-
-
-            return false;
-        }
-
 
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 

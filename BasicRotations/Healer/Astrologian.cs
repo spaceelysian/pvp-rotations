@@ -12,7 +12,6 @@ public class ASTPvP : AstrologianRotation
         if (TheBalancePvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BalanceDrawn_3101)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
-
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
@@ -21,8 +20,8 @@ public class ASTPvP : AstrologianRotation
         if (GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
-
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
@@ -34,7 +33,6 @@ public class ASTPvP : AstrologianRotation
         if (MicrocosmosPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
-
     }
 
     protected override bool GeneralGCD(out IAction? act)
@@ -49,6 +47,5 @@ public class ASTPvP : AstrologianRotation
         if (AspectedBeneficPvP.CanUse(out act) && AspectedBeneficPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
 
         return base.GeneralGCD(out act);
-
     }
 }
