@@ -12,6 +12,7 @@ public class RDMPvP : RedMageRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+
         if (Player.HasStatus(true, StatusID.BlackShift))
         {
             if (FrazzlePvP.CanUse(out act)) return true;
@@ -22,6 +23,7 @@ public class RDMPvP : RedMageRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+
         if (Player.HasStatus(true, StatusID.WhiteShift))
         {
             if (MagickBarrierPvP.CanUse(out act)) return true;
@@ -65,7 +67,6 @@ public class RDMPvP : RedMageRotation
             {
                 if (VeraeroIiiPvP.CanUse(out act)) return true;
             }
-
             if (VerstonePvP.CanUse(out act)) return true;
         }
 
