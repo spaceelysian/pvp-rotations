@@ -31,6 +31,8 @@ public sealed class GNBPvP : GunbreakerRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
+        if (Player.HasStatus(true, StatusID.PowderBarrel) && BurstStrikePvP.CanUse(out act)) return true;
+
         if (IsLastGCD((ActionID)SavageClawPvP.ID) && WickedTalonPvP.CanUse(out act, skipComboCheck: true)) return true;
         if (IsLastGCD((ActionID)GnashingFangPvP.ID) && SavageClawPvP.CanUse(out act, skipComboCheck: true)) return true;
         if (GnashingFangPvP.CanUse(out act)) return true;
