@@ -7,7 +7,7 @@ public sealed class DRKPvP : DarkKnightRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (Player.CurrentHp < Player.MaxHp && TheBlackestNightPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && TheBlackestNightPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

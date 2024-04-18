@@ -1,1 +1,1 @@
-﻿[assembly: AssemblyLink(Donate = "", UserName = "spaceelysian", Repository = "https://github.com/spaceelysian/pvp-rotations")]
+﻿[assembly: AssemblyLink(Donate = "", UserName = "spaceelysian", Repository = "pvp-rotations")]

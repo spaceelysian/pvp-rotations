@@ -45,7 +45,7 @@ public class RDMPvP : RedMageRotation
 
             if (Player.HasStatus(true, StatusID.Dualcast_1393))
             {
-                if (VerthunderIiiPvP.CanUse(out act, skipComboCheck: true)) return true;
+                if (VerthunderIiiPvP.CanUse(out act)) return true;
             }
             if (VerfirePvP.CanUse(out act)) return true;
         }
@@ -63,7 +63,7 @@ public class RDMPvP : RedMageRotation
 
             if (Player.HasStatus(true, StatusID.Dualcast_1393))
             {
-                if (VeraeroIiiPvP.CanUse(out act, skipComboCheck: true)) return true;
+                if (VeraeroIiiPvP.CanUse(out act)) return true;
             }
 
             if (VerstonePvP.CanUse(out act)) return true;

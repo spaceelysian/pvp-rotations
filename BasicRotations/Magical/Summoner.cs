@@ -15,13 +15,21 @@ public class SMNPvP : SummonerRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (FesterPvP.CanUse(out act) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
+        if (FesterPvP.CanUse(out act, usedUp: true) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
+
+        if (FesterPvP.Cooldown.CurrentCharges == 2 && FesterPvP.CanUse(out act)) return true;
 
         if (MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (EnkindleBahamutPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true,StatusID.DreadwyrmTrance_3228))
+        {
+            if (EnkindleBahamutPvP.CanUse(out act)) return true;
+        }
 
-        if (EnkindlePhoenixPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.FirebirdTrance))
+        {
+            if (EnkindlePhoenixPvP.CanUse(out act)) return true;
+        }
 
         return base.AttackAbility(nextGCD, out act);
     }
