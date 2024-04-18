@@ -23,7 +23,7 @@ public class PLDPvP : PaladinRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (HolySheltronPvP.CanUse(out act)) return true;
+        if (Player.CurrentHp < Player.MaxHp && HolySheltronPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
