@@ -13,15 +13,14 @@ public sealed class WARPvP : WarriorRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (OrogenyPvP.CanUse(out act, skipAoeCheck: true, skipCastingCheck: true, skipClippingCheck: true, skipStatusProvideCheck: true, skipComboCheck: true)) return true;
-        if (OnslaughtPvP.CanUse(out act)) return true;
+        if (OrogenyPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (BloodwhettingPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
+        if (Player.CurrentHp < Player.MaxHp && BloodwhettingPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -30,7 +29,7 @@ public sealed class WARPvP : WarriorRotation
 
         if (Player.HasStatus(true, StatusID.Bloodwhetting_3030) && PrimalRendPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (ChaoticCyclonePvP.CanUse(out act)) return true;
+        if (ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
         if (StormsPathPvP.CanUse(out act)) return true;
         if (MaimPvP.CanUse(out act)) return true;
