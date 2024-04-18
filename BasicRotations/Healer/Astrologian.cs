@@ -7,9 +7,9 @@ public class ASTPvP : AstrologianRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (TheBolePvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BoleDrawn_3403)) return true;
-        if (TheArrowPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.ArrowDrawn_3404)) return true;
-        if (TheBalancePvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BalanceDrawn_3101)) return true;
+        if (TheBolePvP.CanUse(out act) && Player.HasStatus(true, StatusID.BoleDrawn_3403)) return true;
+        if (TheArrowPvP.CanUse(out act) && Player.HasStatus(true, StatusID.ArrowDrawn_3404)) return true;
+        if (TheBalancePvP.CanUse(out act) && Player.HasStatus(true, StatusID.BalanceDrawn_3101)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
