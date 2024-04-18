@@ -7,7 +7,7 @@ public sealed class BRDPvP : BardRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (Player.HasStatus(true, StatusID.Stun_1343))
+        if (Player.HasStatus(true, StatusID.Stun_1343, StatusID.Bind_1345))
         {
             if (TheWardensPaeanPvP.CanUse(out act)) return true;
         }

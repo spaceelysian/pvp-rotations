@@ -37,8 +37,6 @@ public sealed class RPRPvP : ReaperRotation
             if (LemuresSlicePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-
-
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 
         if (PlentifulHarvestPvP.CanUse(out act)) return true;

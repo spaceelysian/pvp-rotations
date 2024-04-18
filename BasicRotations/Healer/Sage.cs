@@ -13,7 +13,7 @@ public class SGEPvP : SageRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (ToxikonPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Toxikon) && ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -21,7 +21,7 @@ public class SGEPvP : SageRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (EukrasiaPvP.CanUse(out act)) return true;
+        if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -31,7 +31,7 @@ public class SGEPvP : SageRotation
 
         if (PneumaPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (PhlegmaIiiPvP.CanUse(out act)) return true;
+        if (PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if (DosisIiiPvP.CanUse(out act)) return true;
 
