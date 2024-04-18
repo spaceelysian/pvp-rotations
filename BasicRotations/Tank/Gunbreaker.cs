@@ -25,6 +25,8 @@ public sealed class GNBPvP : GunbreakerRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
+        if (DoubleDownPvP.CanUse(out act)) return true;
+
         if (SolidBarrelPvP.CanUse(out act)) return true;
         if (BrutalShellPvP.CanUse(out act)) return true;
         if (KeenEdgePvP.CanUse(out act)) return true;

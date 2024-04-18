@@ -15,8 +15,6 @@ public class DRGPvP : DragoonRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (HighJumpPvP.CanUse(out act)) return true;
-
         if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

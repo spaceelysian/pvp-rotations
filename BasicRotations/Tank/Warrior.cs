@@ -13,7 +13,7 @@ public sealed class WARPvP : WarriorRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (OrogenyPvP.CanUse(out act)) return true;
+        if (OrogenyPvP.CanUse(out act, skipAoeCheck: true, skipCastingCheck: true, skipClippingCheck: true, skipStatusProvideCheck: true, skipComboCheck: true)) return true;
         if (OnslaughtPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);

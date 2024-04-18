@@ -14,8 +14,6 @@ public sealed class DRKPvP : DarkKnightRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (PlungePvP.CanUse(out act)) return true;
-
         if (IsLastAbility((ActionID)PlungePvP.ID) && SaltedEarthPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         if (IsLastAbility((ActionID)SaltedEarthPvP.ID) && SaltAndDarknessPvP.CanUse(out act)) return true;

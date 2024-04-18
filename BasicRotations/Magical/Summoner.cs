@@ -7,7 +7,7 @@ public class SMNPvP : SummonerRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (Player.CurrentHp < Player.MaxHp && RadiantAegisPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && RadiantAegisPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -36,12 +36,9 @@ public class SMNPvP : SummonerRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
+        if (IsLastGCD((ActionID)CrimsonCyclonePvP.ID) && CrimsonStrikePvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         if (SlipstreamPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
-        if (CrimsonCyclonePvP.IsInCooldown && CrimsonStrikePvP.IsInCooldown && RuinIiiPvP.CanUse(out act)) return true;
-
-        if (CrimsonCyclonePvP.CanUse(out act, skipCastingCheck: true, skipClippingCheck: true, skipAoeCheck: true)) return true;
-        if (CrimsonStrikePvP.CanUse(out act, skipCastingCheck: true, skipClippingCheck: true, skipAoeCheck: true)) return true;
 
         if (RuinIiiPvP.CanUse(out act)) return true;
 

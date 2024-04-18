@@ -8,7 +8,7 @@ public class DNCPvP : DancerRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (CuringWaltzPvP.CanUse(out act)) return true;
+        //if (CuringWaltzPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

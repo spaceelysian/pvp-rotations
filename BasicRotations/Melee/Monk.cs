@@ -21,6 +21,7 @@ public sealed class MNKPvP : MonkRotation
 
         if (Player.WillStatusEnd(2, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if ((Player.CurrentHp < 20000) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
 
         return base.AttackAbility(nextGCD, out act);

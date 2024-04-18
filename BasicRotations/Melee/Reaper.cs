@@ -32,10 +32,12 @@ public sealed class RPRPvP : ReaperRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (Player.HasStatus(true, StatusID.Enshrouded_2863))
+        if (Player.HasStatus(true, StatusID.Enshrouded_2863) && Player.WillStatusEnd(17, true, StatusID.Enshrouded_2863))
         {
             if (LemuresSlicePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
+
+
 
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 

@@ -17,8 +17,6 @@ public class PLDPvP : PaladinRotation
 
         if (ShieldBashPvP.CanUse(out act)) return true;
 
-        if (IntervenePvP.CanUse(out act)) return true;
-
         return base.AttackAbility(nextGCD, out act);
     }
 
