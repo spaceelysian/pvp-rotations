@@ -7,6 +7,8 @@ public sealed class RPRPvP : ReaperRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (HostileTarget.DistanceToPlayer() <= 6 && DeathWarrantPvP.CanUse(out act)) return true;
+
         if (ArcaneCrestPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -17,13 +19,20 @@ public sealed class RPRPvP : ReaperRotation
 
         if (Player.HasStatus(true, StatusID.Soulsow_2750) && HarvestMoonPvP.CanUse(out act)) return true;
 
-        if (GrimSwathePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (GrimSwathePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }

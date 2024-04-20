@@ -29,6 +29,13 @@ public sealed class BRDPvP : BardRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
+
         return base.GeneralAbility(nextGCD, out act);
     }
     protected override bool GeneralGCD(out IAction? act)

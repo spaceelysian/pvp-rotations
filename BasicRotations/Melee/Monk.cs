@@ -7,6 +7,10 @@ public sealed class MNKPvP : MonkRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (IsLastGCD((ActionID)DemolishPvP.ID) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+
         if (IsLastGCD((ActionID)EnlightenmentPvP.ID) && ThunderclapPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -15,14 +19,10 @@ public sealed class MNKPvP : MonkRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (IsLastGCD((ActionID)DemolishPvP.ID) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
         if (SixsidedStarPvP.CanUse(out act)) return true;
 
-        if (Player.WillStatusEnd(2, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.WillStatusEnd(4, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if ((Player.CurrentHp < 20000) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -30,7 +30,12 @@ public sealed class MNKPvP : MonkRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (RiddleOfEarthPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }

@@ -36,6 +36,13 @@ public class SMNPvP : SummonerRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
+
         if (RadiantAegisPvP.CanUse(out act) && RadiantAegisPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
 
         return base.GeneralAbility(nextGCD, out act);

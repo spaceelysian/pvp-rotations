@@ -25,6 +25,13 @@ public class ASTPvP : AstrologianRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
+
         if (DrawPvP.CanUse(out act)) return true;
 
         if (AspectedBeneficPvP_29247.CanUse(out act)) return true;

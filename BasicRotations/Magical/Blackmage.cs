@@ -24,11 +24,21 @@ public class BLMPvP : BlackMageRotation
             if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
         }
 
+        if (NightWingPvP.CanUse(out act)) return true;
+
+
         return base.AttackAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }

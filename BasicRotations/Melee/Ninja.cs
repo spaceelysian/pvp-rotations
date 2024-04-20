@@ -20,6 +20,7 @@ public class NINPvP : NinjaRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

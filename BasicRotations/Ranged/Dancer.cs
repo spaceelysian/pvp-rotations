@@ -8,7 +8,7 @@ public class DNCPvP : DancerRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
-        //if (CuringWaltzPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (CuringWaltzPvP.CanUse(out act, skipAoeCheck: true) && (Player.CurrentHp < Player.MaxHp)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -23,6 +23,13 @@ public class DNCPvP : DancerRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }

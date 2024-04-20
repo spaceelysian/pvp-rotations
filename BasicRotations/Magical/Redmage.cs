@@ -24,6 +24,13 @@ public class RDMPvP : RedMageRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
+
         if (Player.HasStatus(true, StatusID.WhiteShift))
         {
             if (MagickBarrierPvP.CanUse(out act)) return true;

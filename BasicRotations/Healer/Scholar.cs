@@ -21,6 +21,8 @@ public class SCHPvP : ScholarRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
         if (ExpedientPvP.CanUse(out act)) return true;
 
         if (AdloquiumPvP.CanUse(out act) && AdloquiumPvP.Target.Target?.GetHealthRatio() < 0.9) return true;

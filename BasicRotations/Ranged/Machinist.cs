@@ -19,7 +19,14 @@ public class MCHPvP : MachinistRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (!Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
+        if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
+
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        {
+            if (SprintPvP.CanUse(out act)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }

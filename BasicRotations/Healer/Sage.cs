@@ -21,6 +21,8 @@ public class SGEPvP : SageRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
+        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
         if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
