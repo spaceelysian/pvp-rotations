@@ -42,8 +42,6 @@ public sealed class WARPvP : WarriorRotation
     protected override bool GeneralGCD(out IAction? act)
     {
 
-        if (Player.HasStatus(true, StatusID.Bloodwhetting_3030) && PrimalRendPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
         if ((Player.CurrentHp < Player.MaxHp) && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
         if (StormsPathPvP.CanUse(out act)) return true;
