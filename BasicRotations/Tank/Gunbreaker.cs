@@ -13,6 +13,8 @@ public sealed class GNBPvP : GunbreakerRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if ((Player.CurrentHp < Player.MaxHp) && AuroraPvP.CanUse(out act)) return true;
 
@@ -23,6 +25,8 @@ public sealed class GNBPvP : GunbreakerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.JunctionTank))
         {
@@ -58,6 +62,8 @@ public sealed class GNBPvP : GunbreakerRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -74,6 +80,9 @@ public sealed class GNBPvP : GunbreakerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
+
         if (Player.HasStatus(true, StatusID.RelentlessRush))
         {
             act = null;

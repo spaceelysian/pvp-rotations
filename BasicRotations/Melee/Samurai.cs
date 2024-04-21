@@ -11,6 +11,8 @@ public class SAMPvP : SamuraiRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (MeikyoShisuiPvP.CanUse(out act) && HasHostilesInRange) return true;
 
@@ -19,6 +21,8 @@ public class SAMPvP : SamuraiRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (MineuchiPvP.CanUse(out act)) return true;
 
@@ -27,6 +31,8 @@ public class SAMPvP : SamuraiRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -45,6 +51,8 @@ public class SAMPvP : SamuraiRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act)) return true;
 

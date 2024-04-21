@@ -17,6 +17,8 @@ public class NINPvP : NinjaRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && FumaShurikenPvP.Cooldown.CurrentCharges <= 1 && MugPvP.CanUse(out act)) return true;
 
@@ -25,12 +27,17 @@ public class NINPvP : NinjaRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-        if (TimeSinceLastAction.TotalSeconds > 5)
+        if (UseSprint)
         {
-            if (SprintPvP.CanUse(out act)) return true;
+            if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+            if (TimeSinceLastAction.TotalSeconds > 5)
+            {
+                if (SprintPvP.CanUse(out act)) return true;
+            }
         }
 
         return base.GeneralAbility(nextGCD, out act);
@@ -38,8 +45,10 @@ public class NINPvP : NinjaRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (Player.HasStatus(true, StatusID.Hidden_1705))
+        if (Player.HasStatus(true, StatusID.Hidden_1316))
         {
             act = null;
             if (AssassinatePvP.CanUse(out act)) return true;

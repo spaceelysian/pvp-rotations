@@ -11,12 +11,16 @@ public class RDMPvP : RedMageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.BlackShift))
         {
@@ -28,6 +32,8 @@ public class RDMPvP : RedMageRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -49,6 +55,8 @@ public class RDMPvP : RedMageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.BlackShift))
         {

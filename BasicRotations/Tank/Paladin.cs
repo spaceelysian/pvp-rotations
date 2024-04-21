@@ -11,6 +11,8 @@ public class PLDPvP : PaladinRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (GuardianPvP.Target.Target?.GetHealthRatio() < 0.3 && GuardianPvP.CanUse(out act)) return true;
 
@@ -18,6 +20,8 @@ public class PLDPvP : PaladinRotation
     }
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (ShieldBashPvP.CanUse(out act)) return true;
 
@@ -26,6 +30,8 @@ public class PLDPvP : PaladinRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -44,6 +50,8 @@ public class PLDPvP : PaladinRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

@@ -11,6 +11,8 @@ public class WHM : WhiteMageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (AquaveilPvP.CanUse(out act) && AquaveilPvP.Target.Target?.GetHealthRatio() < 0.8) return true;
 
@@ -19,12 +21,16 @@ public class WHM : WhiteMageRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.AttackAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -40,6 +46,8 @@ public class WHM : WhiteMageRotation
     }
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (AfflatusMiseryPvP.CanUse(out act, skipAoeCheck:true)) return true;
 

@@ -10,13 +10,17 @@ public class BLMPvP : BlackMageRotation
     #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
-    { 
+    {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (HostileTarget.StatusStack(true, StatusID.AstralWarmth) == 3)
         {
@@ -36,6 +40,8 @@ public class BLMPvP : BlackMageRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -52,6 +58,8 @@ public class BLMPvP : BlackMageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (IsLastAbility((ActionID)AetherialManipulationPvP.ID) && BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 5) return true;
 

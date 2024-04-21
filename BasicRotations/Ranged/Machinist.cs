@@ -11,18 +11,24 @@ public class MCHPvP : MachinistRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.AttackAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -41,6 +47,8 @@ public class MCHPvP : MachinistRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (!Player.HasStatus(true, StatusID.Overheated_3149) && ScattergunPvP.CanUse(out act,skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 10) return true;
 

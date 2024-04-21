@@ -11,6 +11,8 @@ public class DRGPvP : DragoonRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (HasHostilesInRange && HorridRoarPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -19,6 +21,8 @@ public class DRGPvP : DragoonRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
@@ -28,6 +32,8 @@ public class DRGPvP : DragoonRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -44,6 +50,8 @@ public class DRGPvP : DragoonRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.FirstmindsFocus) && WyrmwindThrustPvP.CanUse(out act, skipAoeCheck:true)) return true;
 

@@ -11,6 +11,8 @@ public sealed class BRDPvP : BardRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.Stun_1343, StatusID.Bind_1345))
         {
@@ -22,6 +24,8 @@ public sealed class BRDPvP : BardRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.FrontlineForte))
         {
@@ -35,6 +39,8 @@ public sealed class BRDPvP : BardRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -50,6 +56,8 @@ public sealed class BRDPvP : BardRotation
     }
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (PitchPerfectPvP.CanUse(out act)) return true;
 

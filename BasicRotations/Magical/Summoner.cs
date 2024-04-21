@@ -11,6 +11,8 @@ public class SMNPvP : SummonerRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if ((Player.CurrentHp < Player.MaxHp) && RadiantAegisPvP.CanUse(out act)) return true;
 
@@ -19,6 +21,8 @@ public class SMNPvP : SummonerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (FesterPvP.CanUse(out act, usedUp: true) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
 
@@ -41,6 +45,8 @@ public class SMNPvP : SummonerRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -59,6 +65,8 @@ public class SMNPvP : SummonerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (IsLastGCD((ActionID)CrimsonCyclonePvP.ID) && CrimsonStrikePvP.CanUse(out act, skipAoeCheck: true)) return true;
 

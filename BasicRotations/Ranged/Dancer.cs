@@ -11,6 +11,8 @@ public class DNCPvP : DancerRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (CuringWaltzPvP.CanUse(out act, skipAoeCheck: true) && (Player.CurrentHp < Player.MaxHp)) return true;
 
@@ -19,6 +21,8 @@ public class DNCPvP : DancerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.SaberDance) && FanDancePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -27,6 +31,8 @@ public class DNCPvP : DancerRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -43,6 +49,8 @@ public class DNCPvP : DancerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.SaberDance) && StarfallDancePvP.CanUse(out act, skipAoeCheck: true)) return true;
 

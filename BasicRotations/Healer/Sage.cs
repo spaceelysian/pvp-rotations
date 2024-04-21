@@ -11,12 +11,16 @@ public class SGEPvP : SageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (!HostileTarget.HasStatus(true, StatusID.Toxikon) && ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
@@ -25,6 +29,8 @@ public class SGEPvP : SageRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -43,6 +49,8 @@ public class SGEPvP : SageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (PneumaPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

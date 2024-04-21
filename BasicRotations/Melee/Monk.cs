@@ -11,6 +11,8 @@ public sealed class MNKPvP : MonkRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (IsLastGCD((ActionID)DemolishPvP.ID) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -23,6 +25,8 @@ public sealed class MNKPvP : MonkRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (SixsidedStarPvP.CanUse(out act)) return true;
 
@@ -34,6 +38,8 @@ public sealed class MNKPvP : MonkRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -50,6 +56,8 @@ public sealed class MNKPvP : MonkRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (EnlightenmentPvP.CanUse(out act,skipAoeCheck:true)) return true;
 

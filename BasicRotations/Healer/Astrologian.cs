@@ -11,6 +11,8 @@ public class ASTPvP : AstrologianRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (TheBolePvP.CanUse(out act) && Player.HasStatus(true, StatusID.BoleDrawn_3403)) return true;
         if (TheArrowPvP.CanUse(out act) && Player.HasStatus(true, StatusID.ArrowDrawn_3404)) return true;
@@ -21,6 +23,8 @@ public class ASTPvP : AstrologianRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -29,6 +33,8 @@ public class ASTPvP : AstrologianRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -52,6 +58,8 @@ public class ASTPvP : AstrologianRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (GravityIiPvP.CanUse(out act)) return true;
 

@@ -11,6 +11,8 @@ public sealed class RPRPvP : ReaperRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (HostileTarget.DistanceToPlayer() <= 6 && DeathWarrantPvP.CanUse(out act)) return true;
 
@@ -21,6 +23,8 @@ public sealed class RPRPvP : ReaperRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.Soulsow_2750) && HarvestMoonPvP.CanUse(out act)) return true;
 
@@ -31,6 +35,8 @@ public sealed class RPRPvP : ReaperRotation
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (UseSprint)
         {
@@ -47,6 +53,8 @@ public sealed class RPRPvP : ReaperRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 
