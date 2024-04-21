@@ -4,6 +4,11 @@ namespace DefaultRotations.Ranged;
 
 public class MCHPvP : MachinistRotation
 {
+    #region Settings
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    public bool UseSprint { get; set; } = true;
+    #endregion
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
@@ -19,17 +24,21 @@ public class MCHPvP : MachinistRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
-
-        if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-        if (TimeSinceLastAction.TotalSeconds > 4.5)
+        if (UseSprint)
         {
-            if (SprintPvP.CanUse(out act)) return true;
+            if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+            if (TimeSinceLastAction.TotalSeconds > 5)
+            {
+                if (SprintPvP.CanUse(out act)) return true;
+            }
         }
+
+        if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
 

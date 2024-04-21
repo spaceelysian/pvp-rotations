@@ -4,6 +4,11 @@ namespace DefaultRotations.Healer;
 
 public class SCHPvP : ScholarRotation
 {
+    #region Settings
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    public bool UseSprint { get; set; } = true;
+    #endregion
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
@@ -21,7 +26,15 @@ public class SCHPvP : ScholarRotation
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
 
-        if (!InCombat && SprintPvP.CanUse(out act)) return true;
+        if (UseSprint)
+        {
+            if (!InCombat && SprintPvP.CanUse(out act)) return true;
+
+            if (TimeSinceLastAction.TotalSeconds > 5)
+            {
+                if (SprintPvP.CanUse(out act)) return true;
+            }
+        }
 
         if (ExpedientPvP.CanUse(out act)) return true;
 
