@@ -14,6 +14,10 @@ public sealed class GNBPvP : GunbreakerRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
 
+        if ((Player.CurrentHp < Player.MaxHp) && AuroraPvP.CanUse(out act)) return true;
+
+        if (AuroraPvP.Target.Target?.GetHealthRatio() < 0.8 && AuroraPvP.CanUse(out act)) return true;
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 
@@ -29,21 +33,24 @@ public sealed class GNBPvP : GunbreakerRotation
             if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP_29112.CanUse(out act)) return true;
         }
 
-        if (Player.HasStatus(true, StatusID.JunctionHealer))
+        if (Player.HasStatus(true, StatusID.JunctionDps))
         {
+            if (BlastingZonePvP.CanUse(out act)) return true;
+
             if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP_29115.CanUse(out act)) return true;
 
             if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP_29118.CanUse(out act)) return true;
             if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP_29117.CanUse(out act)) return true;
             if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP_29116.CanUse(out act)) return true;
         }
-        if (Player.HasStatus(true, StatusID.JunctionDps))
-        {
-            if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP_29119.CanUse(out act)) return true;
 
-            if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP_29122.CanUse(out act)) return true;
-            if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP_29121.CanUse(out act)) return true;
-            if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP_29120.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.JunctionHealer))
+        {
+            if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP_29119.CanUse(out act, skipAoeCheck: true)) return true;
+
+            if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP_29122.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP_29121.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP_29120.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         return base.AttackAbility(nextGCD, out act);
