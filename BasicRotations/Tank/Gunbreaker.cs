@@ -7,7 +7,7 @@ namespace DefaultRotations.Tank;
 public sealed class GNBPvP : GunbreakerRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -27,6 +27,15 @@ public sealed class GNBPvP : GunbreakerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (!Player.HasStatus(true, StatusID.JunctionTank) && !Player.HasStatus(true, StatusID.JunctionDps) && !Player.HasStatus(true, StatusID.JunctionHealer))
+        {
+            if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP.CanUse(out act)) return true;
+
+            if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP.CanUse(out act)) return true;
+            if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP.CanUse(out act)) return true;
+            if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP.CanUse(out act)) return true;
+        }
 
         if (Player.HasStatus(true, StatusID.JunctionTank))
         {
@@ -68,11 +77,6 @@ public sealed class GNBPvP : GunbreakerRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         return base.GeneralAbility(nextGCD, out act);

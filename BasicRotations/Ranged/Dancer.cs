@@ -5,7 +5,7 @@ namespace DefaultRotations.Ranged;
 public class DNCPvP : DancerRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -37,11 +37,6 @@ public class DNCPvP : DancerRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         return base.GeneralAbility(nextGCD, out act);

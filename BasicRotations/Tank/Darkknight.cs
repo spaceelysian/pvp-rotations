@@ -5,7 +5,7 @@ namespace DefaultRotations.Tank;
 public sealed class DRKPvP : DarkKnightRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -40,11 +40,6 @@ public sealed class DRKPvP : DarkKnightRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if (TheBlackestNightPvP.Target.Target?.GetHealthRatio() < 0.9 && TheBlackestNightPvP.CanUse(out act)) return true;

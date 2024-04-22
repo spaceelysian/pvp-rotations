@@ -5,7 +5,7 @@ namespace DefaultRotations.Healer;
 public class ASTPvP : AstrologianRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -39,11 +39,6 @@ public class ASTPvP : AstrologianRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if (DrawPvP.CanUse(out act)) return true;

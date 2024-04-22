@@ -5,7 +5,7 @@ namespace DefaultRotations.Ranged;
 public class MCHPvP : MachinistRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -33,11 +33,6 @@ public class MCHPvP : MachinistRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;

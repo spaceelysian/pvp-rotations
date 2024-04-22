@@ -46,11 +46,6 @@ public class BLMPvP : BlackMageRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         return base.GeneralAbility(nextGCD, out act);

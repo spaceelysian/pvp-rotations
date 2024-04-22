@@ -5,7 +5,7 @@ namespace DefaultRotations.Healer;
 public class SGEPvP : SageRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -35,11 +35,6 @@ public class SGEPvP : SageRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;

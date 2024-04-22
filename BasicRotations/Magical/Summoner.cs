@@ -5,7 +5,7 @@
 public class SMNPvP : SummonerRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -51,11 +51,6 @@ public class SMNPvP : SummonerRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if (RadiantAegisPvP.CanUse(out act) && RadiantAegisPvP.Target.Target?.GetHealthRatio() < 0.9) return true;

@@ -5,7 +5,7 @@
 public class PLDPvP : PaladinRotation
 {
     #region Settings
-    [RotationConfig(CombatType.PvP, Name = "Use Sprint?")]
+    [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
 
@@ -36,11 +36,6 @@ public class PLDPvP : PaladinRotation
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
-
-            if (TimeSinceLastAction.TotalSeconds > 5)
-            {
-                if (SprintPvP.CanUse(out act)) return true;
-            }
         }
 
         if ((Player.CurrentHp < Player.MaxHp) && HolySheltronPvP.CanUse(out act)) return true;
