@@ -14,7 +14,7 @@ public sealed class BRDPvP : BardRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (Player.HasStatus(true, StatusID.Stun_1343, StatusID.Bind_1345))
+        if (Player.HasStatus(true, StatusID.Stun_1343) || Player.HasStatus(true, StatusID.Bind_1345))
         {
             if (TheWardensPaeanPvP.CanUse(out act)) return true;
         }
@@ -30,9 +30,9 @@ public sealed class BRDPvP : BardRotation
         if (Player.HasStatus(true, StatusID.FrontlineForte))
         {
             if (EmpyrealArrowPvP.Cooldown.CurrentCharges == 3 && EmpyrealArrowPvP.CanUse(out act)) return true;
-        }
 
-        if (SilentNocturnePvP.CanUse(out act)) return true;
+            if (!HostileTarget.HasStatus(true, StatusID.Resilience) && SilentNocturnePvP.CanUse(out act)) return true;
+        }
 
         return base.AttackAbility(nextGCD, out act);
     }

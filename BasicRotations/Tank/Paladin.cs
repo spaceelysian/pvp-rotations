@@ -23,7 +23,7 @@ public class PLDPvP : PaladinRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (ShieldBashPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && ShieldBashPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -38,7 +38,7 @@ public class PLDPvP : PaladinRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
-        if ((Player.CurrentHp < Player.MaxHp) && HolySheltronPvP.CanUse(out act)) return true;
+        if (HolySheltronPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

@@ -24,7 +24,7 @@ public class SAMPvP : SamuraiRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (MineuchiPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && MineuchiPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }

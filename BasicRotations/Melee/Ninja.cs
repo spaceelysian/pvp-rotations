@@ -58,9 +58,18 @@ public class NINPvP : NinjaRotation
 
         if (FumaShurikenPvP.Cooldown.CurrentCharges == 3 && FumaShurikenPvP.CanUse(out act)) return true;
 
-        if (AeolianEdgePvP.CanUse(out act)) return true;
-        if (GustSlashPvP.CanUse(out act)) return true;
-        if (SpinningEdgePvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
+        {
+             if (!HostileTarget.HasStatus(true, StatusID.Resilience) && FleetingRaijuPvP.CanUse(out act)) return true;
+        }
+
+
+        if (!Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
+        {
+            if (AeolianEdgePvP.CanUse(out act)) return true;
+            if (GustSlashPvP.CanUse(out act)) return true;
+            if (SpinningEdgePvP.CanUse(out act)) return true;
+        }
 
         if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
         if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.5 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;

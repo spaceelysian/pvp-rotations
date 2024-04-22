@@ -87,11 +87,7 @@ public sealed class GNBPvP : GunbreakerRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (Player.HasStatus(true, StatusID.RelentlessRush))
-        {
-            act = null;
-            return false;
-        }
+        if (Player.HasStatus(true, StatusID.RelentlessRush)) return false;
 
         if (GnashingFangPvP.Cooldown.IsCoolingDown)
         {

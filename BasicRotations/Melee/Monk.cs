@@ -28,7 +28,7 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (SixsidedStarPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && SixsidedStarPvP.CanUse(out act)) return true;
 
         if (Player.WillStatusEnd(4, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if ((Player.CurrentHp < 20000) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;

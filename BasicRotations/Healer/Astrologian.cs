@@ -26,7 +26,7 @@ public class ASTPvP : AstrologianRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && GravityIiPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }

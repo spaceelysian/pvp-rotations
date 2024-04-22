@@ -1,3 +1,5 @@
+using RotationSolver.Basic.Actions;
+
 namespace DefaultRotations.Melee;
 [Rotation("Drg-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
@@ -14,7 +16,7 @@ public class DRGPvP : DragoonRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (HasHostilesInRange && HorridRoarPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.LifeOfTheDragon) && HasHostilesInRange && HorridRoarPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -24,8 +26,15 @@ public class DRGPvP : DragoonRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!HorridRoarPvP.Cooldown.IsCoolingDown)
+        {
+            if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
+        if (Player.WillStatusEnd(1, true, StatusID.LifeOfTheDragon))
+        {
+            if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -50,7 +59,12 @@ public class DRGPvP : DragoonRotation
 
         if (Player.HasStatus(true, StatusID.FirstmindsFocus) && WyrmwindThrustPvP.CanUse(out act, skipAoeCheck:true)) return true;
 
-        if ((Player.CurrentHp < Player.MaxHp) && ChaoticSpringPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.LifeOfTheDragon))
+        {
+            if ((Player.CurrentHp < Player.MaxHp) && ChaoticSpringPvP.CanUse(out act)) return true;
+        }
+
+        if (Player.GetHealthRatio() < 0.2 && ChaoticSpringPvP.CanUse(out act)) return true;
 
         if (WheelingThrustPvP.CanUse(out act)) return true;
         if (FangAndClawPvP.CanUse(out act)) return true;
