@@ -11,6 +11,7 @@ public class SCHPvP : ScholarRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
@@ -36,8 +37,6 @@ public class SCHPvP : ScholarRotation
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
-
-        if (ExpedientPvP.CanUse(out act)) return true;
 
         if (AdloquiumPvP.CanUse(out act) && AdloquiumPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
  

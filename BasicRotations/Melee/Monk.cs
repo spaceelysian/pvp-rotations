@@ -14,11 +14,11 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastGCD((ActionID)DemolishPvP.ID) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
-        if (RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+        if (IsLastGCD((ActionID)DemolishPvP.ID) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if (IsLastGCD((ActionID)EnlightenmentPvP.ID) && ThunderclapPvP.CanUse(out act)) return true;
+
+        if (RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

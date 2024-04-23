@@ -20,6 +20,8 @@ public sealed class GNBPvP : GunbreakerRotation
 
         if (AuroraPvP.Target.Target?.GetHealthRatio() < 0.8 && AuroraPvP.CanUse(out act)) return true;
 
+        if ((Player.CurrentHp < Player.MaxHp) && NebulaPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 
@@ -48,13 +50,13 @@ public sealed class GNBPvP : GunbreakerRotation
 
         if (Player.HasStatus(true, StatusID.JunctionDps))
         {
-            if (BlastingZonePvP.CanUse(out act)) return true;
-
             if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP_29115.CanUse(out act)) return true;
 
             if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP_29118.CanUse(out act)) return true;
             if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP_29117.CanUse(out act)) return true;
             if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP_29116.CanUse(out act)) return true;
+
+            if (BlastingZonePvP.CanUse(out act)) return true;
         }
 
         if (Player.HasStatus(true, StatusID.JunctionHealer))
@@ -95,11 +97,11 @@ public sealed class GNBPvP : GunbreakerRotation
             if (IsLastGCD((ActionID)GnashingFangPvP.ID) && SavageClawPvP.CanUse(out act, skipComboCheck: true)) return true;
         }
 
-        if (GnashingFangPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy_3042) && DoubleDownPvP.CanUse(out act) && HasHostilesInRange) return true;
+
+        if (Player.HasStatus(true, StatusID.NoMercy_3042) && GnashingFangPvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.PowderBarrel) && BurstStrikePvP.CanUse(out act)) return true;
-
-        if (Player.HasStatus(true, StatusID.NoMercy_3042) && DoubleDownPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         if (SolidBarrelPvP.CanUse(out act)) return true;
         if (BrutalShellPvP.CanUse(out act)) return true;

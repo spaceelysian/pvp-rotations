@@ -31,7 +31,7 @@ public class DRGPvP : DragoonRotation
             if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (Player.WillStatusEnd(1, true, StatusID.LifeOfTheDragon))
+        if (Player.WillStatusEnd(2, true, StatusID.LifeOfTheDragon))
         {
             if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }

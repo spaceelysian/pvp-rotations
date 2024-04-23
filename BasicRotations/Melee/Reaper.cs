@@ -59,7 +59,6 @@ public sealed class RPRPvP : ReaperRotation
         if (Player.HasStatus(true, StatusID.Enshrouded_2863))
         {
             act = null;
-
             return false;
         }
 
