@@ -24,7 +24,7 @@ public class BLMPvP : BlackMageRotation
 
         if (HostileTarget.StatusStack(true, StatusID.AstralWarmth) == 3)
         {
-            if (SuperflarePvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
         }
 
         if (HostileTarget.StatusStack(true, StatusID.UmbralFreeze) == 3)
@@ -33,7 +33,6 @@ public class BLMPvP : BlackMageRotation
         }
 
         if (NightWingPvP.CanUse(out act)) return true;
-
 
         return base.AttackAbility(nextGCD, out act);
     }

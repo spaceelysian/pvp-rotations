@@ -72,12 +72,12 @@ public class MCHPvP : MachinistRotation
             }
             if (WildfirePvP.IsInCooldown)
             {
-                if (BlastChargePvP.CanUse(out act)) return true;
+                if (BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
             }
             return false;
         }
 
-        if (BlastChargePvP.CanUse(out act)) return true;
+        if (BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }

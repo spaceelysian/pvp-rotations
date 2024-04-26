@@ -54,7 +54,7 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (EnlightenmentPvP.CanUse(out act,skipAoeCheck:true)) return true;
+        //if (EnlightenmentPvP.CanUse(out act,skipAoeCheck:true)) return true;
 
         if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (DemolishPvP.CanUse(out act)) return true;
