@@ -1,6 +1,6 @@
 using RotationSolver.Basic.Actions;
 
-namespace DefaultRotations.Tank;
+namespace PvPRotations.Tank;
 [Rotation("Gnb-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

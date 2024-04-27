@@ -1,6 +1,6 @@
 using RotationSolver.Basic.Actions;
 
-namespace DefaultRotations.Melee;
+namespace PvPRotations.Melee;
 [Rotation("Drg-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

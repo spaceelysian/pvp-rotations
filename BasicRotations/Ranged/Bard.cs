@@ -1,4 +1,4 @@
-namespace DefaultRotations.Ranged;
+namespace PvPRotations.Ranged;
 [Rotation("Brd-pvp", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -54,7 +54,7 @@ public sealed class BRDPvP : BardRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (PitchPerfectPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && PitchPerfectPvP.CanUse(out act)) return true;
 
         if (BlastArrowPvP.CanUse(out act)) return true;
         if (ApexArrowPvP.CanUse(out act)) return true;

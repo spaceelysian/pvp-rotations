@@ -1,4 +1,4 @@
-﻿namespace DefaultRotations.Melee;
+﻿namespace PvPRotations.Melee;
 [Rotation("Sam-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -61,7 +61,6 @@ public class SAMPvP : SamuraiRotation
             if (MangetsuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (HyosetsuPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-
 
         if (KashaPvP.CanUse(out act)) return true;
         if (GekkoPvP.CanUse(out act)) return true;

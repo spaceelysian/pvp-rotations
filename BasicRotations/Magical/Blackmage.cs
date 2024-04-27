@@ -1,4 +1,4 @@
-﻿namespace DefaultRotations.Magical;
+﻿namespace PvPRotations.Magical;
 [Rotation("Blm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

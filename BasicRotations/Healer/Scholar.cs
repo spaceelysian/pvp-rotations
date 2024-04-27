@@ -1,4 +1,4 @@
-namespace DefaultRotations.Healer;
+namespace PvPRotations.Healer;
 [Rotation("Sch-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -9,11 +9,35 @@ public class SCHPvP : ScholarRotation
     public bool UseSprint { get; set; } = true;
     #endregion
 
+    public IBaseAction DeploymentTactics => Deploy.Value;
+
+    private readonly Lazy<IBaseAction> Deploy = new(delegate
+    {
+        IBaseAction action = new BaseAction(ActionID.DeploymentTacticsPvP);
+        ActionSetting setting = action.Setting;
+        ModifyDeployThis(ref setting);
+        action.Setting = setting;
+        return action;
+    });
+
+    public static void ModifyDeployThis(ref ActionSetting setting)
+    {
+        setting.TargetStatusNeed = [StatusID.Biolysis_3089];
+    }
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (HostileTarget)
+        {
+            if (!BiolysisPvP.Cooldown.IsCoolingDown && !Player.HasStatus(true, StatusID.Recitation_3094))
+            {
+                if (ExpedientPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            }
+            if (DeploymentTactics.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -48,7 +72,10 @@ public class SCHPvP : ScholarRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (BiolysisPvP.CanUse(out act)) return true;
+        if (DeploymentTacticsPvP.Cooldown.HasOneCharge && (Player.HasStatus(true, StatusID.Recitation_3094) || ExpedientPvP.Cooldown.RecastTimeRemainOneCharge > 15))
+        {
+            if (BiolysisPvP.CanUse(out act)) return true;
+        }
 
         if (BroilIvPvP.CanUse(out act)) return true;
 

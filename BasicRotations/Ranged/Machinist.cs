@@ -1,4 +1,4 @@
-namespace DefaultRotations.Ranged;
+namespace PvPRotations.Ranged;
 [Rotation("Mch-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

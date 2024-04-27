@@ -1,4 +1,4 @@
-namespace DefaultRotations.Tank;
+namespace PvPRotations.Tank;
 [Rotation("Drk-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

@@ -1,4 +1,4 @@
-namespace DefaultRotations.Healer;
+namespace PvPRotations.Healer;
 [Rotation("Ast-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 

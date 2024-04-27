@@ -1,4 +1,4 @@
-﻿namespace DefaultRotations.Melee;
+﻿namespace PvPRotations.Melee;
 [Rotation("Rpr-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -48,6 +48,26 @@ public sealed class RPRPvP : ReaperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (Player.HasStatus(true, StatusID.Enshrouded_2863))
+        {
+            act = null;
+            if (Player.WillStatusEnd(17, true, StatusID.Enshrouded_2863))
+            {
+                if (ArcaneCrestPvP.CanUse(out act)) return true;
+                if (LemuresSlicePvP.CanUse(out act, skipAoeCheck: true)) return true;
+            }
+            if (Player.StatusStack(true, StatusID.Enshrouded_2863) == 1 || Player.WillStatusEnd(4, true, StatusID.Enshrouded_2863))
+            {
+                if (CommunioPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            }
+            if (Player.StatusStack(true, StatusID.Enshrouded_2863) > 1)
+            {
+                if (VoidReapingPvP.CanUse(out act)) return true;
+                if (CrossReapingPvP.CanUse(out act)) return true;
+            }
+            return false;
+        }
 
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 
