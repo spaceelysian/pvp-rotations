@@ -47,6 +47,8 @@ public class DNCPvP : DancerRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
+        if (HostileTarget.DistanceToPlayer() <= 5 && HoningDancePvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         if (Player.HasStatus(true, StatusID.SaberDance) && StarfallDancePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (FountainPvP.CanUse(out act)) return true;
