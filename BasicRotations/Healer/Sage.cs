@@ -49,7 +49,7 @@ public class SGEPvP : SageRotation
 
         if (PneumaPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+        if (HostileTarget.HasStatus(true, StatusID.Toxikon) && PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if (DosisIiiPvP.CanUse(out act)) return true;
 

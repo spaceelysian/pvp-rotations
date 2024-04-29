@@ -14,7 +14,7 @@ public sealed class BRDPvP : BardRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (Player.HasStatus(true, StatusID.Stun_1343) || Player.HasStatus(true, StatusID.Bind_1345))
+        if (Player.HasStatus(false, StatusID.Stun_1343) || Player.HasStatus(false, StatusID.Bind_1345))
         {
             if (TheWardensPaeanPvP.CanUse(out act)) return true;
         }
@@ -49,12 +49,13 @@ public sealed class BRDPvP : BardRotation
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && PitchPerfectPvP.CanUse(out act)) return true;
+        if (PitchPerfectPvP.CanUse(out act) && !HostileTarget.HasStatus(false, StatusID.Resilience)) return true;
 
         if (BlastArrowPvP.CanUse(out act)) return true;
         if (ApexArrowPvP.CanUse(out act)) return true;

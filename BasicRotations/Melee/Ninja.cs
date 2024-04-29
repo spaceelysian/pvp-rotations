@@ -11,6 +11,11 @@ public class NINPvP : NinjaRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if ((!Player.HasStatus(true, StatusID.SealedHuton) && Player.CurrentHp < 20000) && HutonPvP.CanUse(out act)) return true;
+        if ((!Player.HasStatus(true, StatusID.SealedMeisui) && Player.CurrentHp < 20000) && MeisuiPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -19,7 +24,6 @@ public class NINPvP : NinjaRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && FumaShurikenPvP.Cooldown.CurrentCharges <= 1 && MugPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
@@ -29,6 +33,9 @@ public class NINPvP : NinjaRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
+        if (HasHostilesInRange && BunshinPvP.CanUse(out act)) return true;
 
         if (UseSprint)
         {
@@ -53,6 +60,11 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.ThreeMudra))
         {
             act = null;
+
+            if (!Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 5 && ForkedRaijuPvP.CanUse(out act)) return true;
+            if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
+
             return false;
         }
 
@@ -60,9 +72,8 @@ public class NINPvP : NinjaRotation
 
         if (Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
         {
-             if (!HostileTarget.HasStatus(true, StatusID.Resilience) && FleetingRaijuPvP.CanUse(out act)) return true;
+             if (!HostileTarget.HasStatus(true, StatusID.Resilience) && !HostileTarget.HasStatus(true, StatusID.Stun_1343) && FleetingRaijuPvP.CanUse(out act)) return true;
         }
-
 
         if (!Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
         {
