@@ -1,14 +1,9 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Blue", CombatType.PvE, GameVersion = "6.58", Description = "Bluest mage")]
+[Rotation("Bloops", CombatType.PvE, GameVersion = "6.58", Description = "Bluest mage")]
 [Api(1)]
 
 public class BlueMage : BlueMageRotation
 {
-    #region Settings
-    [RotationConfig(CombatType.PvE, Name = "Zzz?")]
-    public bool UseSprint { get; set; } = true;
-    #endregion
-
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -22,6 +17,15 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
+        if (QuasarPvE.CanUse(out act)) return true;
+        if (ShockStrikePvE.CanUse(out act)) return true;
+
+        if (GlassDancePvE.CanUse(out act)) return true;
+
+        if (BeingMortalPvE.CanUse(out act)) return true;
+        if (SeaShantyPvE.CanUse(out act)) return true;
+        if (NightbloomPvE.CanUse(out act)) return true;
+
         return base.AttackAbility(nextGCD, out act);
     }
 
@@ -29,6 +33,9 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true;
+        if (!Player.HasStatus(true, StatusID.Gobskin) && GobskinPvE.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -38,6 +45,8 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (FeatherRainPvE.CanUse(out act)) return true;
 
         return base.MoveForwardAbility(nextGCD, out act);
     }

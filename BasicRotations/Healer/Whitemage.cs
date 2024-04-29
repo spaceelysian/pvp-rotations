@@ -14,7 +14,7 @@ public class WHM : WhiteMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (AquaveilPvP.CanUse(out act) && AquaveilPvP.Target.Target?.GetHealthRatio() < 0.8) return true;
+        if (AquaveilPvP.CanUse(out act) && AquaveilPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -50,7 +50,7 @@ public class WHM : WhiteMageRotation
 
         if (Player.CurrentHp < Player.MaxHp && CureIiiPvP.CanUse(out act)) return true;
 
-        if (CureIiPvP.CanUse(out act)) return true;
+        if (CureIiPvP.CanUse(out act) && CureIiPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
 
         return base.GeneralGCD(out act);
     }
