@@ -23,9 +23,9 @@ public sealed class DRKPvP : DarkKnightRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastAbility((ActionID)PlungePvP.ID) && SaltedEarthPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if (SaltedEarthPvP.CanUse(out act) && HasHostilesInRange) return true;
 
-        if (IsLastAbility((ActionID)SaltedEarthPvP.ID) && SaltAndDarknessPvP.CanUse(out act)) return true;
+        if (SaltAndDarknessPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (Player.HasStatus(true, StatusID.DarkArts_3034) && ShadowbringerPvP_29738.CanUse(out act, skipAoeCheck: true)) return true;
 

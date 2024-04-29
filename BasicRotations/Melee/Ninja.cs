@@ -13,6 +13,7 @@ public class NINPvP : NinjaRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
         if ((!Player.HasStatus(true, StatusID.SealedHuton) && Player.CurrentHp < 20000) && HutonPvP.CanUse(out act)) return true;
         if ((!Player.HasStatus(true, StatusID.SealedMeisui) && Player.CurrentHp < 20000) && MeisuiPvP.CanUse(out act)) return true;
@@ -24,6 +25,8 @@ public class NINPvP : NinjaRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
+
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && FumaShurikenPvP.Cooldown.CurrentCharges <= 1 && MugPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
@@ -33,6 +36,7 @@ public class NINPvP : NinjaRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
         if (HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
         if (HasHostilesInRange && BunshinPvP.CanUse(out act)) return true;
@@ -68,7 +72,7 @@ public class NINPvP : NinjaRotation
             return false;
         }
 
-        if (FumaShurikenPvP.Cooldown.CurrentCharges == 3 && FumaShurikenPvP.CanUse(out act)) return true;
+        if (FumaShurikenPvP.Cooldown.CurrentCharges == 3 && FumaShurikenPvP.CanUse(out act) && !Player.HasStatus(true, StatusID.Hidden_1316)) return true;
 
         if (Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
         {
