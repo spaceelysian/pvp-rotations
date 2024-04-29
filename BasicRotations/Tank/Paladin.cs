@@ -23,7 +23,7 @@ public class PLDPvP : PaladinRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && HostileTarget.HasStatus(true, StatusID.SacredClaim) && ShieldBashPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && HostileTarget.HasStatus(true, StatusID.SacredClaim) && ShieldBashPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }

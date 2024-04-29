@@ -56,11 +56,11 @@ public class ASTPvP : AstrologianRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && GravityIiPvP.CanUse(out act)) return true;
+        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && GravityIiPvP.CanUse(out act)) return true;
 
         if (FallMaleficPvP.CanUse(out act)) return true;
 
-        if (Player.CurrentHp < Player.MaxHp && AspectedBeneficPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && AspectedBeneficPvP.CanUse(out act)) return true;
 
         if (AspectedBeneficPvP.CanUse(out act) && AspectedBeneficPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
 

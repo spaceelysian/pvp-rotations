@@ -28,7 +28,7 @@ public class SMNPvP : SummonerRotation
 
         if (FesterPvP.Cooldown.CurrentCharges == 2 && FesterPvP.CanUse(out act)) return true;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (Player.HasStatus(true,StatusID.DreadwyrmTrance_3228))
         {

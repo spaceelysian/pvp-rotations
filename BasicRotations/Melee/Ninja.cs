@@ -76,7 +76,7 @@ public class NINPvP : NinjaRotation
 
         if (Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
         {
-             if (!HostileTarget.HasStatus(true, StatusID.Resilience) && !HostileTarget.HasStatus(true, StatusID.Stun_1343) && FleetingRaijuPvP.CanUse(out act)) return true;
+             if (!HostileTarget.HasStatus(false, StatusID.Resilience) && !HostileTarget.HasStatus(true, StatusID.Stun_1343) && FleetingRaijuPvP.CanUse(out act)) return true;
         }
 
         if (!Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))

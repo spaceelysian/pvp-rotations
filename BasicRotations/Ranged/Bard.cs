@@ -31,7 +31,7 @@ public sealed class BRDPvP : BardRotation
         {
             if (EmpyrealArrowPvP.Cooldown.CurrentCharges == 3 && EmpyrealArrowPvP.CanUse(out act)) return true;
 
-            if (!HostileTarget.HasStatus(true, StatusID.Resilience) && SilentNocturnePvP.CanUse(out act)) return true;
+            if (!HostileTarget.HasStatus(false, StatusID.Resilience) && SilentNocturnePvP.CanUse(out act)) return true;
         }
 
         return base.AttackAbility(nextGCD, out act);
@@ -55,7 +55,7 @@ public sealed class BRDPvP : BardRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (PitchPerfectPvP.CanUse(out act) && !HostileTarget.HasStatus(false, StatusID.Resilience)) return true;
+        if (PitchPerfectPvP.CanUse(out act)) return true;
 
         if (BlastArrowPvP.CanUse(out act)) return true;
         if (ApexArrowPvP.CanUse(out act)) return true;

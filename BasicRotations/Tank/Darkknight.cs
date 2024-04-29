@@ -42,7 +42,7 @@ public sealed class DRKPvP : DarkKnightRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
-        if (TheBlackestNightPvP.Target.Target?.GetHealthRatio() < 0.9 && TheBlackestNightPvP.CanUse(out act)) return true;
+        if ((TheBlackestNightPvP.Target.Target?.GetHealthRatio() < 0.9) && TheBlackestNightPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
