@@ -15,9 +15,6 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
-        if ((!Player.HasStatus(true, StatusID.SealedHuton) && Player.CurrentHp < 20000) && HutonPvP.CanUse(out act)) return true;
-        if ((!Player.HasStatus(true, StatusID.SealedMeisui) && Player.CurrentHp < 20000) && MeisuiPvP.CanUse(out act)) return true;
-
         return base.EmergencyAbility(nextGCD, out act);
     }
 
@@ -38,7 +35,7 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
-        if (HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
+        if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
         if (HasHostilesInRange && BunshinPvP.CanUse(out act)) return true;
 
         if (UseSprint)
@@ -65,9 +62,20 @@ public class NINPvP : NinjaRotation
         {
             act = null;
 
+            if (Player.CurrentHp < 22222)
+            {
+                if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
+                if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
+            }
+
+            if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.3) && MeisuiPvP.CanUse(out act)) return true;
+
             if (!Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 5 && ForkedRaijuPvP.CanUse(out act)) return true;
             if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
+
+            if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
+            if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
 
             return false;
         }
@@ -87,7 +95,7 @@ public class NINPvP : NinjaRotation
         }
 
         if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
-        if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.5 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
+        if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.55 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
 
         return base.GeneralGCD(out act);
     }
