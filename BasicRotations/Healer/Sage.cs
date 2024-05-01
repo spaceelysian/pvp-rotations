@@ -14,6 +14,8 @@ public class SGEPvP : SageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
+        if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 
@@ -36,8 +38,6 @@ public class SGEPvP : SageRotation
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
-
-        if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

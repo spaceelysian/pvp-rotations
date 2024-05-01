@@ -26,7 +26,7 @@ public class ASTPvP : AstrologianRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!HostileTarget.HasStatus(true, StatusID.Resilience) && GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -60,9 +60,9 @@ public class ASTPvP : AstrologianRotation
 
         if (FallMaleficPvP.CanUse(out act)) return true;
 
-        if ((Player.CurrentHp < Player.MaxHp) && AspectedBeneficPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < (Player.MaxHp-15000)) && AspectedBeneficPvP.CanUse(out act)) return true;
 
-        if (AspectedBeneficPvP.CanUse(out act) && AspectedBeneficPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
+        if (AspectedBeneficPvP.CanUse(out act) && AspectedBeneficPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
 
         return base.GeneralGCD(out act);
     }

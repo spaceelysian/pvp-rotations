@@ -28,7 +28,14 @@ public sealed class RPRPvP : ReaperRotation
 
         if (GrimSwathePvP.CanUse(out act)) return true;
 
-        return base.AttackAbility(nextGCD, out act);
+        if (HarvestMoonPvP.CanUse(out act, skipAoeCheck: true) && HarvestMoonPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
+
+        if (Player.HasStatus(true, StatusID.Soulsow_2750))
+        {
+            if (Player.WillStatusEnd(5, true, StatusID.Soulsow_2750) && HarvestMoonPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
+            return base.AttackAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)

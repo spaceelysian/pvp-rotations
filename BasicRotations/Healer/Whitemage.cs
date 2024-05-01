@@ -48,7 +48,11 @@ public class WHM : WhiteMageRotation
 
         if (GlareIiiPvP.CanUse(out act)) return true;
 
-        if (Player.CurrentHp < Player.MaxHp && CureIiiPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.CureIiiReady))
+        {
+            if (Player.CurrentHp < Player.MaxHp && CureIiiPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.WillStatusEnd(3, true, StatusID.CureIiiReady) && CureIiPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         if (CureIiPvP.CanUse(out act) && CureIiPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
 

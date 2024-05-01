@@ -23,6 +23,8 @@ public class MCHPvP : MachinistRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
+        if (BishopAutoturretPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         return base.AttackAbility(nextGCD, out act);
     }
 
