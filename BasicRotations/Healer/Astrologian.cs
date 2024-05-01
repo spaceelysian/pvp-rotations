@@ -14,9 +14,14 @@ public class ASTPvP : AstrologianRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (TheBolePvP.CanUse(out act) && Player.HasStatus(true, StatusID.BoleDrawn_3403)) return true;
-        if (TheArrowPvP.CanUse(out act) && Player.HasStatus(true, StatusID.ArrowDrawn_3404)) return true;
-        if (TheBalancePvP.CanUse(out act) && Player.HasStatus(true, StatusID.BalanceDrawn_3101)) return true;
+        if (Player.HasStatus(true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.ArrowDrawn_3404) && Player.WillStatusEnd(5, true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (Player.HasStatus(true, StatusID.BalanceDrawn_3101) && TheBalancePvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.BalanceDrawn_3101) && Player.WillStatusEnd(5, true, StatusID.BalancedTactics) && TheBalancePvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (Player.HasStatus(true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.BoleDrawn_3403) && Player.WillStatusEnd(5, true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
