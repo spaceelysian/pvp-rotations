@@ -13,6 +13,7 @@ public sealed class WARPvP : WarriorRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -36,7 +37,7 @@ public sealed class WARPvP : WarriorRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
-        if (BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if ((Player.CurrentHp < Player.MaxHp) &&BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

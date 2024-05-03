@@ -13,6 +13,8 @@ public class BLMPvP : BlackMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -55,7 +57,9 @@ public class BLMPvP : BlackMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastAbility((ActionID)AetherialManipulationPvP.ID) && BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 5) return true;
+        if (Player.HasStatus(true, StatusID.Swiftcast_1325) && BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 5) return true;
+
+        if (BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 3) return true;
 
         /*if (HostileTarget.StatusStack(true, StatusID.UmbralFreeze) == 1)
         {
@@ -68,6 +72,7 @@ public class BLMPvP : BlackMageRotation
         if (Player.HasStatus(true, StatusID.AstralFireIii_3381) && FlarePvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (Player.HasStatus(true, StatusID.AstralFireIi_3213) &&  FireIvPvP.CanUse(out act)) return true;
         */
+
         return base.GeneralGCD(out act);
     }
 }

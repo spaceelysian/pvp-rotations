@@ -13,6 +13,7 @@ public class DNCPvP : DancerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         if (CuringWaltzPvP.CanUse(out act, skipAoeCheck: true) && (Player.CurrentHp < Player.MaxHp)) return true;
 

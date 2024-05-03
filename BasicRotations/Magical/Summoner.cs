@@ -13,6 +13,7 @@ public class SMNPvP : SummonerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         if ((Player.CurrentHp < Player.MaxHp) && RadiantAegisPvP.CanUse(out act)) return true;
 

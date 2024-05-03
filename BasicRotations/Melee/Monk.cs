@@ -13,6 +13,7 @@ public sealed class MNKPvP : MonkRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         if (IsLastGCD((ActionID)DemolishPvP.ID) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 

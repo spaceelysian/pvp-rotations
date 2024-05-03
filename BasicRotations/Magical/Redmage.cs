@@ -13,6 +13,7 @@ public class RDMPvP : RedMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -55,6 +56,11 @@ public class RDMPvP : RedMageRotation
 
         if (Player.HasStatus(true, StatusID.BlackShift))
         {
+            act = null;
+            if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+            if (ResolutionPvP_29696.CanUse(out act, skipAoeCheck: true)) return true;
+
             if (EnchantedRedoublementPvP_29694.CanUse(out act)) return true;
             if (EnchantedZwerchhauPvP_29693.CanUse(out act)) return true;
             if (EnchantedRipostePvP_29692.CanUse(out act)) return true;
@@ -72,6 +78,10 @@ public class RDMPvP : RedMageRotation
 
         if (Player.HasStatus(true, StatusID.WhiteShift))
         {
+            act = null; 
+            if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+            if (ResolutionPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
             if (EnchantedRedoublementPvP.CanUse(out act)) return true;
             if (EnchantedZwerchhauPvP.CanUse(out act)) return true;

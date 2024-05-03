@@ -13,7 +13,7 @@ public class MCHPvP : MachinistRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

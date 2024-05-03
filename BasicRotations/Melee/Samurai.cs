@@ -13,6 +13,7 @@ public class SAMPvP : SamuraiRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         if (MeikyoShisuiPvP.CanUse(out act) && HasHostilesInRange) return true;
 
