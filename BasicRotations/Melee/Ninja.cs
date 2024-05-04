@@ -63,18 +63,18 @@ public class NINPvP : NinjaRotation
         {
             act = null;
 
-            if (Player.CurrentHp < 22222)
-            {
-                if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
-                if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
-            }
-
             if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.3) && MeisuiPvP.CanUse(out act)) return true;
 
             if (!Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 5 && ForkedRaijuPvP.CanUse(out act)) return true;
 
             if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
+
+            if (Player.CurrentHp < (Player.MaxHp-40000))
+            {
+                if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
+                if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
+            }
 
             if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
             if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
