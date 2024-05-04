@@ -16,7 +16,6 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
         if (QuasarPvE.CanUse(out act)) return true;
         if (ShockStrikePvE.CanUse(out act)) return true;
 
