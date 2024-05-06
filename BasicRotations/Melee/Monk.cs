@@ -15,9 +15,7 @@ public sealed class MNKPvP : MonkRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
-        if (IsLastGCD((ActionID)DemolishPvP.ID) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-       
-        if (LimitBreakLevel != 1 && IsLastGCD((ActionID)EnlightenmentPvP.ID) && ThunderclapPvP.CanUse(out act)) return true;
+        if (nextGCD.IsTheSameTo(true, PhantomRushPvP) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if ((Player.CurrentHp < Player.MaxHp) && RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
@@ -43,7 +41,9 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (UseSprint)
+        if (!Player.HasStatus(true, StatusID.WindResonance) && HostileTarget.DistanceToPlayer() < 3 && ThunderclapPvP.CanUse(out act)) return true;
+
+            if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
