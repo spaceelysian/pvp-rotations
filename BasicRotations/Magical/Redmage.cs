@@ -52,6 +52,8 @@ public class RDMPvP : RedMageRotation
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.BlackShift))
@@ -59,7 +61,7 @@ public class RDMPvP : RedMageRotation
             act = null;
             if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-            if (ResolutionPvP_29696.CanUse(out act, skipAoeCheck: true)) return true;
+            if (IsLastAbility((ActionID)CorpsacorpsPvP.ID) && FrazzlePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
             if (EnchantedRedoublementPvP_29694.CanUse(out act)) return true;
             if (EnchantedZwerchhauPvP_29693.CanUse(out act)) return true;
@@ -81,7 +83,7 @@ public class RDMPvP : RedMageRotation
             act = null; 
             if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-            if (ResolutionPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (NoResilience && ResolutionPvP.CanUse(out act)) return true;
 
             if (EnchantedRedoublementPvP.CanUse(out act)) return true;
             if (EnchantedZwerchhauPvP.CanUse(out act)) return true;

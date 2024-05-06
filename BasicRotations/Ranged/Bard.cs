@@ -26,13 +26,15 @@ public sealed class BRDPvP : BardRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.HasStatus(true, StatusID.FrontlineForte))
         {
             if (EmpyrealArrowPvP.Cooldown.CurrentCharges == 3 && EmpyrealArrowPvP.CanUse(out act)) return true;
 
-            if (!HostileTarget.HasStatus(false, StatusID.Resilience) && SilentNocturnePvP.CanUse(out act)) return true;
+            if (NoResilience && SilentNocturnePvP.CanUse(out act)) return true;
         }
 
         return base.AttackAbility(nextGCD, out act);

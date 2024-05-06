@@ -1,4 +1,6 @@
-﻿namespace PvPRotations.Magical;
+﻿using Dalamud.Game.ClientState.Objects.Enums;
+using Dalamud.Game.ClientState.Objects.SubKinds;
+namespace PvPRotations.Magical;
 [Rotation("Blm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -22,17 +24,15 @@ public class BLMPvP : BlackMageRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var Astral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3);
+        var Umbral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (HostileTarget.StatusStack(true, StatusID.AstralWarmth) == 3)
-        {
-            if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-        }
-
-        if (HostileTarget.StatusStack(true, StatusID.UmbralFreeze) == 3)
-        {
-            if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-        }
+        if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Astral) return true;
+  
+        if (NoResilience && Umbral && SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if (NightWingPvP.CanUse(out act)) return true;
 
@@ -59,7 +59,7 @@ public class BLMPvP : BlackMageRotation
 
         if (Player.HasStatus(true, StatusID.Swiftcast_1325) && BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 5) return true;
 
-        if (BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 3) return true;
+        //if (BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 3) return true;
 
         /*if (HostileTarget.StatusStack(true, StatusID.UmbralFreeze) == 1)
         {

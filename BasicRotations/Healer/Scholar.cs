@@ -62,9 +62,7 @@ public class SCHPvP : ScholarRotation
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
-
-        if (AdloquiumPvP.CanUse(out act) && AdloquiumPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
- 
+        
         return base.GeneralAbility(nextGCD, out act);
     }
 

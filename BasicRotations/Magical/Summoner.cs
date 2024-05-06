@@ -23,13 +23,15 @@ public class SMNPvP : SummonerRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (FesterPvP.CanUse(out act, usedUp: true) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
 
         if (FesterPvP.Cooldown.CurrentCharges == 2 && FesterPvP.CanUse(out act)) return true;
 
-        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (NoResilience && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (Player.HasStatus(true,StatusID.DreadwyrmTrance_3228))
         {
@@ -53,8 +55,6 @@ public class SMNPvP : SummonerRotation
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
-
-        if (RadiantAegisPvP.CanUse(out act) && RadiantAegisPvP.Target.Target?.GetHealthRatio() < 0.9) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

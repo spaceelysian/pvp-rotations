@@ -22,11 +22,14 @@ public class PLDPvP : PaladinRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+        var SacredClaim = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.SacredClaim);
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && HostileTarget.HasStatus(true, StatusID.SacredClaim) && ShieldBashPvP.CanUse(out act)) return true;
 
-        if (HostileTarget.HasStatus(true, StatusID.SacredClaim) && IntervenePvP.CanUse(out act) && HostileTarget.DistanceToPlayer() < 5) return true;
+        if (NoResilience && SacredClaim && ShieldBashPvP.CanUse(out act)) return true;
+
+        if (SacredClaim && IntervenePvP.CanUse(out act) && HostileTarget.DistanceToPlayer() < 5) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }

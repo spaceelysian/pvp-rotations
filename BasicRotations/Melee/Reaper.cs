@@ -15,6 +15,11 @@ public sealed class RPRPvP : ReaperRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
+        if (Player.HasStatus(true, StatusID.Enshrouded_2863))
+        {
+            if (ArcaneCrestPvP.CanUse(out act)) return true;
+        }
+
         if ((Player.CurrentHp < Player.MaxHp) & ArcaneCrestPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -23,6 +28,8 @@ public sealed class RPRPvP : ReaperRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var NoResilience = HostileTarget != null && !HostileTarget.HasStatus(false, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (HostileTarget.DistanceToPlayer() <= 6 && DeathWarrantPvP.CanUse(out act)) return true;
@@ -34,8 +41,7 @@ public sealed class RPRPvP : ReaperRotation
             if (Player.WillStatusEnd(5, true, StatusID.Soulsow_2750) && HarvestMoonPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (GrimSwathePvP.CanUse(out act)) return true;
-
+        if (NoResilience && GrimSwathePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -57,7 +63,7 @@ public sealed class RPRPvP : ReaperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-       
+
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
 
         if (PlentifulHarvestPvP.CanUse(out act)) return true;

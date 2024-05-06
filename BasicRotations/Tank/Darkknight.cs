@@ -1,3 +1,5 @@
+using FFXIVClientStructs.FFXIV.Client.Game.Group;
+
 namespace PvPRotations.Tank;
 [Rotation("Drk-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
@@ -43,8 +45,6 @@ public sealed class DRKPvP : DarkKnightRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
-        if ((TheBlackestNightPvP.Target.Target?.GetHealthRatio() < 0.9) && TheBlackestNightPvP.CanUse(out act)) return true;
-
         return base.GeneralAbility(nextGCD, out act);
     }
 
@@ -53,7 +53,7 @@ public sealed class DRKPvP : DarkKnightRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (QuietusPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && QuietusPvP.CanUse(out act)) return true;
 
         if (SouleaterPvP.CanUse(out act)) return true;
         if (SyphonStrikePvP.CanUse(out act)) return true;

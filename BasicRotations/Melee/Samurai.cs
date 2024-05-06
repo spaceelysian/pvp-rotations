@@ -8,7 +8,6 @@ public class SAMPvP : SamuraiRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
-
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -23,9 +22,11 @@ public class SAMPvP : SamuraiRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && MineuchiPvP.CanUse(out act)) return true;
+        if (NoResilience && MineuchiPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -48,6 +49,8 @@ public class SAMPvP : SamuraiRotation
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
+        var Kuzushi = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.Kuzushi);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act)) return true;

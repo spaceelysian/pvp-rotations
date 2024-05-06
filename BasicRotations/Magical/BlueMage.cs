@@ -16,6 +16,7 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
         if (QuasarPvE.CanUse(out act)) return true;
         if (ShockStrikePvE.CanUse(out act)) return true;
 
@@ -33,12 +34,8 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
-        if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true;
-        if (!Player.HasStatus(true, StatusID.Gobskin) && GobskinPvE.CanUse(out act)) return true;
-
         return base.GeneralAbility(nextGCD, out act);
     }
-
 
     protected override bool MoveForwardAbility(IAction nextGCD, out IAction? act)
     {
@@ -50,13 +47,6 @@ public class BlueMage : BlueMageRotation
         return base.MoveForwardAbility(nextGCD, out act);
     }
 
-    protected override bool GeneralGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        return base.GeneralGCD(out act);
-    }
     protected override bool HealSingleGCD(out IAction? act)
     {
         act = null;
@@ -73,11 +63,42 @@ public class BlueMage : BlueMageRotation
         return base.HealAreaGCD(out act);
     }
 
+    protected override bool DefenseSingleGCD(out IAction? act)
+    {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true;
+
+        return base.HealAreaGCD(out act);
+    }
+
+    protected override bool DefenseAreaGCD(out IAction? act)
+    {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (!Player.HasStatus(true, StatusID.Gobskin) && GobskinPvE.CanUse(out act)) return true;
+
+        return base.HealAreaGCD(out act);
+    }
+
     protected override bool MoveForwardGCD(out IAction? act)
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
         return base.MoveForwardGCD(out act);
+    }
+
+    protected override bool GeneralGCD(out IAction? act)
+    {
+        act = null;
+        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (PeripheralSynthesisPvE.CanUse(out act, skipAoeCheck:true)) return true;
+        if (IsLastGCD((ActionID)PeripheralSynthesisPvE.ID) && MustardBombPvE.CanUse(out act)) return true;
+    
+        return base.GeneralGCD(out act);
     }
 }

@@ -12,10 +12,12 @@ public class SGEPvP : SageRotation
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
+        var Toxikon = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Toxikon);
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
-        if (EukrasiaPvP.Cooldown.CurrentCharges == 2 && EukrasiaPvP.CanUse(out act)) return true;
+        if (ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Toxikon) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -25,8 +27,6 @@ public class SGEPvP : SageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(true, StatusID.Toxikon) && ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-
         return base.AttackAbility(nextGCD, out act);
     }
 
@@ -34,6 +34,8 @@ public class SGEPvP : SageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (!Player.HasStatus(true, StatusID.Eukrasia) && EukrasiaPvP.CanUse(out act)) return true;
 
         if (UseSprint)
         {
@@ -48,9 +50,9 @@ public class SGEPvP : SageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (PneumaPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (PneumaPvP.CanUse(out act)) return true;
 
-        if (HostileTarget.HasStatus(true, StatusID.Toxikon) && PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+        if (PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if (DosisIiiPvP.CanUse(out act)) return true;
 

@@ -16,10 +16,10 @@ public sealed class MNKPvP : MonkRotation
         if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
 
         if (IsLastGCD((ActionID)DemolishPvP.ID) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+       
+        if (LimitBreakLevel != 1 && IsLastGCD((ActionID)EnlightenmentPvP.ID) && ThunderclapPvP.CanUse(out act)) return true;
 
-        if (IsLastGCD((ActionID)EnlightenmentPvP.ID) && ThunderclapPvP.CanUse(out act)) return true;
-
-        if (RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -29,10 +29,11 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!HostileTarget.HasStatus(false, StatusID.Resilience) && SixsidedStarPvP.CanUse(out act)) return true;
-
-        if (Player.WillStatusEnd(4, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if ((Player.CurrentHp < 20000) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.EarthResonance))
+        {
+            if (Player.WillStatusEnd(3, true, StatusID.EarthResonance) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if ((Player.CurrentHp < (Player.MaxHp - 40000)) && EarthsReplyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -54,6 +55,8 @@ public sealed class MNKPvP : MonkRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (IsLastAbility((ActionID)SixsidedStarPvP.ID) &&  EnlightenmentPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (DemolishPvP.CanUse(out act)) return true;
