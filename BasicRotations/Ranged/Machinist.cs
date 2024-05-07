@@ -49,11 +49,8 @@ public class MCHPvP : MachinistRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!Player.HasStatus(true, StatusID.Overheated_3149) && ScattergunPvP.CanUse(out act,skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 10) return true;
-
         if (Player.HasStatus(true, StatusID.Analysis))
         {
-
             if (NoResilience && Player.HasStatus(true, StatusID.AirAnchorPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && AirAnchorPvP.CanUse(out act, usedUp: true)) return true;
             if (Player.HasStatus(true, StatusID.BioblasterPrimed) && !Player.HasStatus(true, StatusID.AirAnchorPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && BioblasterPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
             if (Player.HasStatus(true, StatusID.ChainSawPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.BioblasterPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && ChainSawPvP.CanUse(out act, skipAoeCheck: true)) return true;
@@ -65,16 +62,15 @@ public class MCHPvP : MachinistRotation
         if (ChainSawPvP.Cooldown.CurrentCharges == 2 &&Player.HasStatus(true, StatusID.ChainSawPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.BioblasterPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && ChainSawPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (DrillPvP.Cooldown.CurrentCharges == 2 &&Player.HasStatus(true, StatusID.DrillPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.AirAnchorPrimed, StatusID.Overheated_3149) && DrillPvP.CanUse(out act)) return true;
 
+        if (!Player.HasStatus(true, StatusID.Overheated_3149) && ScattergunPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 10) return true;
+
         if (Player.HasStatus(true, StatusID.Overheated_3149))
         {
             act = null;
-            
-            {
-                if (WildfirePvP.CanUse(out act)) return true;
-            }
+            if (WildfirePvP.CanUse(out act)) return true;
             if (WildfirePvP.IsInCooldown)
             {
-                if (BlastChargePvP.CanUse(out act)) return true;
+                if (HeatBlastPvP.CanUse(out act)) return true;
             }
             return false;
         }
