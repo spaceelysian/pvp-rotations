@@ -1,5 +1,3 @@
-using FFXIVClientStructs.FFXIV.Client.Game.Group;
-
 namespace PvPRotations.Tank;
 [Rotation("Drk-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
@@ -17,7 +15,7 @@ public sealed class DRKPvP : DarkKnightRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
-        if ((Player.CurrentHp < Player.MaxHp) && TheBlackestNightPvP.CanUse(out act)) return true;
+        if (Player.CurrentHp < Player.MaxHp && TheBlackestNightPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -26,7 +24,7 @@ public sealed class DRKPvP : DarkKnightRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (SaltedEarthPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if (SaltedEarthPvP.CanUse(out act)) return true;
 
         if (SaltAndDarknessPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -39,11 +37,7 @@ public sealed class DRKPvP : DarkKnightRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         return base.GeneralAbility(nextGCD, out act);
     }

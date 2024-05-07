@@ -35,11 +35,7 @@ public class WHM : WhiteMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         return base.GeneralAbility(nextGCD, out act);
     }

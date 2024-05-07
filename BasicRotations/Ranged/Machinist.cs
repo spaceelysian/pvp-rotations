@@ -32,11 +32,8 @@ public class MCHPvP : MachinistRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
 
         if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
 

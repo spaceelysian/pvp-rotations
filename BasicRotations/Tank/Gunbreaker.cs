@@ -17,7 +17,7 @@ public sealed class GNBPvP : GunbreakerRotation
 
         if (Player.CurrentHp < Player.MaxHp && AuroraPvP.CanUse(out act)) return true;
 
-        if (AuroraPvP.Target.Target?.GetHealthRatio() < 0.8 && AuroraPvP.CanUse(out act)) return true;
+        if (AuroraPvP.CanUse(out act) && AuroraPvP.Target.Target?.GetHealthRatio() < 0.8) return true;
 
         if (Player.CurrentHp < Player.MaxHp && NebulaPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
 
@@ -74,11 +74,7 @@ public sealed class GNBPvP : GunbreakerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -87,7 +83,6 @@ public sealed class GNBPvP : GunbreakerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
         if (Player.HasStatus(true, StatusID.RelentlessRush)) return false;
 
         if (GnashingFangPvP.Cooldown.IsCoolingDown)

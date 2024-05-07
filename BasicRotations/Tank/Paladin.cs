@@ -38,11 +38,7 @@ public class PLDPvP : PaladinRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (HolySheltronPvP.CanUse(out act) && HasHostilesInRange) return true;
 

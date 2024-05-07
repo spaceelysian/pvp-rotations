@@ -36,11 +36,7 @@ public class ASTPvP : AstrologianRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (DrawPvP.CanUse(out act)) return true;
         if (DrawnCard == CardType.ARROW)
@@ -72,7 +68,9 @@ public class ASTPvP : AstrologianRotation
    {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        
+
+        if (Player.GetHealthRatio() < 0.5 && AspectedBeneficPvP.CanUse(out act)) return true;
+
         if (GravityIiPvP.CanUse(out act)) return true;
 
         if (FallMaleficPvP.CanUse(out act)) return true;

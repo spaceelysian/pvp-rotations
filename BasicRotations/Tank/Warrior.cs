@@ -31,11 +31,7 @@ public sealed class WARPvP : WarriorRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (Player.CurrentHp < Player.MaxHp && BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
 

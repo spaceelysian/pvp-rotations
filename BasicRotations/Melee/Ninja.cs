@@ -35,11 +35,7 @@ public class NINPvP : NinjaRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
-
-        if (UseSprint)
-        {
-            if (!InCombat && SprintPvP.CanUse(out act)) return true;
-        }
+        if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (HostileTarget.DistanceToPlayer() <= 7 && BunshinPvP.CanUse(out act)) return true;
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
