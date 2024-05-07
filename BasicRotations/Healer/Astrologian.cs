@@ -13,27 +13,9 @@ public class ASTPvP : AstrologianRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
-
-        if (DrawPvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (IsLastGCD((ActionID)AspectedBeneficPvP.ID) && AspectedBeneficPvP_29247.CanUse(out act)) return true;
-
-        if (Player.HasStatus(true, StatusID.ArrowDrawn_3404))
-        { 
-            if( TheArrowPvP.CanUse(out act)) return true;
-            if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        }
-        if (Player.HasStatus(true, StatusID.BalanceDrawn_3101))
-        {
-            if (TheBalancePvP.CanUse(out act)) return true;
-            if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheBalancePvP.CanUse(out act, skipAoeCheck: true)) return true;
-        }
-        if (Player.HasStatus(true, StatusID.BoleDrawn_3403))
-        {
-            if (TheBolePvP.CanUse(out act)) return true;
-            if (Player.WillStatusEnd(10, true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act, skipAoeCheck: true)) return true;
-        }
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -41,9 +23,6 @@ public class ASTPvP : AstrologianRotation
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
-        var NoHeavy = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Heavy_1344);
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (MacrocosmosPvP.CanUse(out act)) return true;
@@ -63,10 +42,27 @@ public class ASTPvP : AstrologianRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
+        if (DrawPvP.CanUse(out act)) return true;
+        if (DrawnCard == CardType.ARROW)
+        {
+            if (TheArrowPvP.CanUse(out act)) return true;
+            if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+        if (DrawnCard == CardType.BALANCE) 
+        {
+            if (TheBalancePvP.CanUse(out act)) return true;
+            if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheBalancePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+        if (DrawnCard == CardType.BOLE) 
+        {
+            if (TheBolePvP.CanUse(out act)) return true;
+            if (Player.WillStatusEnd(10, true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
         if (Player.HasStatus(true, StatusID.Macrocosmos_3104))
         { 
         if (Player.WillStatusEnd(3, true, StatusID.Macrocosmos_3104) && MicrocosmosPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && MicrocosmosPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.GetHealthRatio() < 0.75 && MicrocosmosPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         return base.GeneralAbility(nextGCD, out act);
@@ -75,7 +71,6 @@ public class ASTPvP : AstrologianRotation
    protected override bool GeneralGCD(out IAction? act)
    {
         act = null;
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         
         if (GravityIiPvP.CanUse(out act)) return true;
