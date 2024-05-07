@@ -15,7 +15,7 @@ public class DRGPvP : DragoonRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.LifeOfTheDragon) && HasHostilesInRange && HorridRoarPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

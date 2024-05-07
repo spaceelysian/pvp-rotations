@@ -14,7 +14,7 @@ public class NINPvP : NinjaRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -36,24 +36,22 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
-        if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
-        if (HasHostilesInRange && BunshinPvP.CanUse(out act)) return true;
-
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
+
+        if (HostileTarget.DistanceToPlayer() <= 7 && BunshinPvP.CanUse(out act)) return true;
+        if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
         if (Player.HasStatus(true, StatusID.Hidden_1316))
         {
             act = null;
@@ -65,14 +63,14 @@ public class NINPvP : NinjaRotation
         {
             act = null;
 
-            if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.3) && MeisuiPvP.CanUse(out act)) return true;
+            if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.4) && MeisuiPvP.CanUse(out act)) return true;
 
             if (NoResilience && !Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 5 && ForkedRaijuPvP.CanUse(out act)) return true;
 
             if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
 
-            if (Player.CurrentHp < (Player.MaxHp-40000))
+            if (Player.GetHealthRatio() < 0.2)
             {
                 if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
                 if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;

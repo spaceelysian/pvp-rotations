@@ -15,7 +15,7 @@ public class WHM : WhiteMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(false, StatusID.Stun_1343) || Player.HasStatus(false, StatusID.Bind_1345))
         {

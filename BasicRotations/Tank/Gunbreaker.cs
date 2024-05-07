@@ -15,13 +15,13 @@ public sealed class GNBPvP : GunbreakerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
-        if ((Player.CurrentHp < Player.MaxHp) && AuroraPvP.CanUse(out act)) return true;
+        if (Player.CurrentHp < Player.MaxHp && AuroraPvP.CanUse(out act)) return true;
 
         if (AuroraPvP.Target.Target?.GetHealthRatio() < 0.8 && AuroraPvP.CanUse(out act)) return true;
 
-        if ((Player.CurrentHp < Player.MaxHp) && NebulaPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
+        if (Player.CurrentHp < Player.MaxHp && NebulaPvP.CanUse(out act) && HasHostilesInMaxRange) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

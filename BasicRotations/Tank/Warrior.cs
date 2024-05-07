@@ -13,7 +13,7 @@ public sealed class WARPvP : WarriorRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -37,7 +37,7 @@ public sealed class WARPvP : WarriorRotation
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
 
-        if ((Player.CurrentHp < Player.MaxHp) &&BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
+        if (Player.CurrentHp < Player.MaxHp && BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -46,7 +46,7 @@ public sealed class WARPvP : WarriorRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if ((Player.CurrentHp < Player.MaxHp) && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+        if (Player.CurrentHp < Player.MaxHp && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
         if (Player.WillStatusEnd(6, true, StatusID.NascentChaos_1992) && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
         if (StormsPathPvP.CanUse(out act)) return true;

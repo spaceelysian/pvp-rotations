@@ -13,7 +13,7 @@ public sealed class MNKPvP : MonkRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (nextGCD.IsTheSameTo(true, PhantomRushPvP) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
@@ -41,12 +41,12 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!Player.HasStatus(true, StatusID.WindResonance) && HostileTarget.DistanceToPlayer() < 3 && ThunderclapPvP.CanUse(out act)) return true;
-
-            if (UseSprint)
+        if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
+
+        if (!Player.HasStatus(true, StatusID.WindResonance) && HostileTarget.DistanceToPlayer() < 3 && ThunderclapPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -56,7 +56,7 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastAbility((ActionID)SixsidedStarPvP.ID) &&  EnlightenmentPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (IsLastAbility((ActionID)SixsidedStarPvP.ID) && EnlightenmentPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (DemolishPvP.CanUse(out act)) return true;

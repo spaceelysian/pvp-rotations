@@ -13,7 +13,7 @@ public sealed class RPRPvP : ReaperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.Enshrouded_2863))
         {
@@ -27,9 +27,8 @@ public sealed class RPRPvP : ReaperRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
-        var NoResilience = HostileTarget != null && !HostileTarget.HasStatus(false, StatusID.Resilience);
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (HostileTarget.DistanceToPlayer() <= 6 && DeathWarrantPvP.CanUse(out act)) return true;

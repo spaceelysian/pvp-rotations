@@ -13,7 +13,7 @@ public class SMNPvP : SummonerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if ((Player.CurrentHp < Player.MaxHp) && RadiantAegisPvP.CanUse(out act)) return true;
 
@@ -22,9 +22,8 @@ public class SMNPvP : SummonerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (FesterPvP.CanUse(out act, usedUp: true) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;

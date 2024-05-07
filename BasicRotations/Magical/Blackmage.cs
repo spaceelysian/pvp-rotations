@@ -15,19 +15,17 @@ public class BLMPvP : BlackMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
-
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        act = null;
         var Astral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3);
         var Umbral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3);
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
-
+        act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Astral) return true;

@@ -13,7 +13,7 @@ public class PLDPvP : PaladinRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (GuardianPvP.Target.Target?.GetHealthRatio() < 0.3 && GuardianPvP.CanUse(out act)) return true;
 
@@ -21,9 +21,9 @@ public class PLDPvP : PaladinRotation
     }
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        act = null;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         var SacredClaim = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.SacredClaim);
+        act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
 

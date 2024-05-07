@@ -9,6 +9,7 @@ public class SCHPvP : ScholarRotation
     public bool UseSprint { get; set; } = true;
     #endregion
 
+    #region Deployment Tactics
     public IBaseAction DeploymentTactics => Deploy.Value;
 
     private readonly Lazy<IBaseAction> Deploy = new(delegate
@@ -24,12 +25,13 @@ public class SCHPvP : ScholarRotation
     {
         setting.TargetStatusNeed = [StatusID.Biolysis_3089];
     }
+    #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (HostileTarget)
         {
@@ -45,10 +47,11 @@ public class SCHPvP : ScholarRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (MummificationPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (NoResilience && MummificationPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(nextGCD,out act);
     }

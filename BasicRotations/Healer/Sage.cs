@@ -11,11 +11,10 @@ public class SGEPvP : SageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        act = null;
         var Toxikon = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Toxikon);
-
+        act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         if (ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Toxikon) return true;
 
@@ -35,12 +34,12 @@ public class SGEPvP : SageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (!Player.HasStatus(true, StatusID.Eukrasia) && EukrasiaPvP.CanUse(out act)) return true;
-
         if (UseSprint)
         {
             if (!InCombat && SprintPvP.CanUse(out act)) return true;
         }
+
+        if (!Player.HasStatus(true, StatusID.Eukrasia) && EukrasiaPvP.CanUse(out act)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

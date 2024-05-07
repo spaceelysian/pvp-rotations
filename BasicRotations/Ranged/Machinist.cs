@@ -13,7 +13,7 @@ public class MCHPvP : MachinistRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if ((Player.CurrentHp < (Player.MaxHp - 22222)) && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -23,7 +23,7 @@ public class MCHPvP : MachinistRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (BishopAutoturretPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BishopAutoturretPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -45,6 +45,7 @@ public class MCHPvP : MachinistRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
@@ -52,7 +53,6 @@ public class MCHPvP : MachinistRotation
 
         if (Player.HasStatus(true, StatusID.Analysis))
         {
-            var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
 
             if (NoResilience && Player.HasStatus(true, StatusID.AirAnchorPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && AirAnchorPvP.CanUse(out act, usedUp: true)) return true;
             if (Player.HasStatus(true, StatusID.BioblasterPrimed) && !Player.HasStatus(true, StatusID.AirAnchorPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && BioblasterPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
@@ -74,12 +74,12 @@ public class MCHPvP : MachinistRotation
             }
             if (WildfirePvP.IsInCooldown)
             {
-                if (BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
+                if (BlastChargePvP.CanUse(out act)) return true;
             }
             return false;
         }
 
-        if (BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
+        if (BlastChargePvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
