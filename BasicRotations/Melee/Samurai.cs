@@ -8,6 +8,7 @@ public class SAMPvP : SamuraiRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;

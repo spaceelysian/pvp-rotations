@@ -1,5 +1,3 @@
-using RotationSolver.Basic.Helpers;
-
 namespace PvPRotations.Healer;
 [Rotation("Whm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]

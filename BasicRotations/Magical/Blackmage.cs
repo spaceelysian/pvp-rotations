@@ -1,6 +1,4 @@
-﻿using Dalamud.Game.ClientState.Objects.Enums;
-using Dalamud.Game.ClientState.Objects.SubKinds;
-namespace PvPRotations.Magical;
+﻿namespace PvPRotations.Magical;
 [Rotation("Blm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
 
@@ -22,8 +20,8 @@ public class BLMPvP : BlackMageRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        var Astral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3);
-        var Umbral = (CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3);
+        var Astral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3;
+        var Umbral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3;
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
