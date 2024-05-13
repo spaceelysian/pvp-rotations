@@ -13,7 +13,7 @@ public class SAMPvP : SamuraiRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (MeikyoShisuiPvP.CanUse(out act) && HasHostilesInRange) return true;
 
@@ -22,7 +22,7 @@ public class SAMPvP : SamuraiRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
@@ -45,7 +45,6 @@ public class SAMPvP : SamuraiRotation
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
-        var Kuzushi = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.Kuzushi);
 
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 

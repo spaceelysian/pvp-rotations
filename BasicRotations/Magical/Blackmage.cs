@@ -13,7 +13,7 @@ public class BLMPvP : BlackMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -22,7 +22,7 @@ public class BLMPvP : BlackMageRotation
     {
         var Astral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3;
         var Umbral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 

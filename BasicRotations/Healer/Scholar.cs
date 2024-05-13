@@ -1,3 +1,7 @@
+using Dalamud.Game.ClientState.Objects.Enums;
+using Dalamud.Utility;
+using FFXIVClientStructs.FFXIV.Client.Game.Group;
+
 namespace PvPRotations.Healer;
 [Rotation("Sch-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
@@ -27,11 +31,12 @@ public class SCHPvP : ScholarRotation
     }
     #endregion
 
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (HostileTarget)
         {

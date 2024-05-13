@@ -13,7 +13,7 @@ public sealed class DRKPvP : DarkKnightRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (Player.CurrentHp < Player.MaxHp && TheBlackestNightPvP.CanUse(out act)) return true;
 

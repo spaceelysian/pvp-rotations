@@ -13,7 +13,7 @@ public sealed class MNKPvP : MonkRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (nextGCD.IsTheSameTo(true, PhantomRushPvP) && !Player.HasStatus(true, StatusID.FireResonance) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 

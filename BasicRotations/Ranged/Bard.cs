@@ -13,7 +13,7 @@ public sealed class BRDPvP : BardRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(false, StatusID.Stun_1343) || Player.HasStatus(false, StatusID.Bind_1345))
         {
@@ -25,7 +25,7 @@ public sealed class BRDPvP : BardRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 

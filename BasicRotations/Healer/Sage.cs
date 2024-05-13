@@ -14,7 +14,7 @@ public class SGEPvP : SageRotation
         var Toxikon = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Toxikon);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         if (ToxikonPvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Toxikon) return true;
 

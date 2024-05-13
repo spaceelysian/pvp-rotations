@@ -14,7 +14,7 @@ public class NINPvP : NinjaRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
-        if (Player.GetHealthRatio() < 0.75 && RecuperatePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -37,7 +37,7 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
-        if (HostileTarget.DistanceToPlayer() <= 7 && BunshinPvP.CanUse(out act)) return true;
+        if (IsLastGCD((ActionID)SpinningEdgePvP.ID) && BunshinPvP.CanUse(out act)) return true;
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
@@ -45,7 +45,7 @@ public class NINPvP : NinjaRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316))
@@ -61,12 +61,12 @@ public class NINPvP : NinjaRotation
 
             if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.4) && MeisuiPvP.CanUse(out act)) return true;
 
-            if (NoResilience && !Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 5 && ForkedRaijuPvP.CanUse(out act)) return true;
+            if (NoResilience && !Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 4 && ForkedRaijuPvP.CanUse(out act)) return true;
 
             if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
 
-            if (Player.GetHealthRatio() < 0.2)
+            if (Player.GetHealthRatio() < 0.33)
             {
                 if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
                 if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
@@ -82,7 +82,7 @@ public class NINPvP : NinjaRotation
 
         if (Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
         {
-             if (NoResilience && FleetingRaijuPvP.CanUse(out act)) return true;
+             if (NoResilience && FleetingRaijuPvP.CanUse(out act) && HostileTarget.DistanceToPlayer() <= 3) return true;
         }
 
         if (!Player.HasStatus(true, StatusID.FleetingRaijuReady_3211))
@@ -92,8 +92,8 @@ public class NINPvP : NinjaRotation
             if (SpinningEdgePvP.CanUse(out act)) return true;
         }
 
-        if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
-        if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.55 && FumaShurikenPvP.CanUse(out act, usedUp: true)) return true;
+        if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true )&& !Player.HasStatus(true, StatusID.Hidden_1316)) return true;
+        if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.55 && FumaShurikenPvP.CanUse(out act, usedUp: true) && !Player.HasStatus(true, StatusID.Hidden_1316)) return true;
 
         return base.GeneralGCD(out act);
     }
