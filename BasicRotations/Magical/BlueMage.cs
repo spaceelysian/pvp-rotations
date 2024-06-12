@@ -96,9 +96,8 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
-        if (PeripheralSynthesisPvE.CanUse(out act, skipAoeCheck:true)) return true;
-        if (IsLastGCD((ActionID)PeripheralSynthesisPvE.ID) && MustardBombPvE.CanUse(out act)) return true;
-    
+        if (SonicBoomPvE.CanUse(out act)) return true;
+
         return base.GeneralGCD(out act);
     }
 }

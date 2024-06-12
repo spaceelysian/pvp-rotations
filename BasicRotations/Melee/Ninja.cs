@@ -1,3 +1,5 @@
+using FFXIVClientStructs.FFXIV.Client.Game.UI;
+
 namespace PvPRotations.Melee;
 [Rotation("Nin-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
 [Api(1)]
@@ -26,7 +28,6 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
         if (!Player.HasStatus(true, StatusID.ThreeMudra) && FumaShurikenPvP.Cooldown.CurrentCharges <= 1 && MugPvP.CanUse(out act)) return true;
-
         return base.AttackAbility(nextGCD, out act);
     }
 
@@ -38,7 +39,7 @@ public class NINPvP : NinjaRotation
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (IsLastGCD((ActionID)SpinningEdgePvP.ID) && BunshinPvP.CanUse(out act)) return true;
-        if (!Player.HasStatus(true, StatusID.ThreeMudra) && HostileTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
+        if (!Player.HasStatus(true, StatusID.ThreeMudra) && CurrentTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
 
         return base.GeneralAbility(nextGCD, out act);
     }

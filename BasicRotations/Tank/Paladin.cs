@@ -26,7 +26,6 @@ public class PLDPvP : PaladinRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-
         if (NoResilience && SacredClaim && ShieldBashPvP.CanUse(out act)) return true;
 
         if (SacredClaim && IntervenePvP.CanUse(out act) && HostileTarget.DistanceToPlayer() < 5) return true;

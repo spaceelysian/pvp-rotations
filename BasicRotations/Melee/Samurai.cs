@@ -8,7 +8,6 @@ public class SAMPvP : SamuraiRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
-
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -45,10 +44,9 @@ public class SAMPvP : SamuraiRotation
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
-
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act)) return true;
+        if (OgiNamikiriPvP.Cooldown.IsCoolingDown && IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.Midare) && MidareSetsugekkaPvP.CanUse(out act)) return true;
 
