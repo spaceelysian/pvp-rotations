@@ -31,12 +31,11 @@ public sealed class RPRPvP : ReaperRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (HostileTarget.DistanceToPlayer() <= 6 && DeathWarrantPvP.CanUse(out act)) return true;
-
-        if (HarvestMoonPvP.CanUse(out act, skipAoeCheck: true) && HarvestMoonPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
+        if (HostileTarget.DistanceToPlayer() <= 5 && DeathWarrantPvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.Soulsow_2750))
         {
+            if (HarvestMoonPvP.CanUse(out act, skipAoeCheck: true) && HarvestMoonPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
             if (Player.WillStatusEnd(5, true, StatusID.Soulsow_2750) && HarvestMoonPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
@@ -60,7 +59,6 @@ public sealed class RPRPvP : ReaperRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
-
         if (PlentifulHarvestPvP.CanUse(out act)) return true;
 
         if (InfernalSlicePvP.CanUse(out act)) return true;
