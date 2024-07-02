@@ -2,7 +2,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.UI;
 
 namespace PvPRotations.Melee;
 [Rotation("Nin-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
-[Api(1)]
+[Api(2)]
 
 public class NINPvP : NinjaRotation
 {
@@ -38,9 +38,8 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
-        if (IsLastGCD((ActionID)SpinningEdgePvP.ID) && BunshinPvP.CanUse(out act)) return true;
-        if (!Player.HasStatus(true, StatusID.ThreeMudra) && CurrentTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
-
+        if (!IsLastAction((ActionID)ThreeMudraPvP.ID) &&!Player.HasStatus(true, StatusID.ThreeMudra) && IsLastGCD((ActionID)SpinningEdgePvP.ID) && BunshinPvP.CanUse(out act)) return true;
+        if (!nextGCD.IsTheSameTo(true, GokaMekkyakuPvP, HyoshoRanryuPvP, ThreeMudraPvP) && !Player.HasStatus(true, StatusID.ThreeMudra) && CurrentTarget.DistanceToPlayer() <= 19 && ThreeMudraPvP.CanUse(out act, usedUp: true)) return true;
         return base.GeneralAbility(nextGCD, out act);
     }
 
@@ -55,26 +54,24 @@ public class NINPvP : NinjaRotation
             if (AssassinatePvP.CanUse(out act)) return true;
             return false;
         }
-
+        
         if (Player.HasStatus(true, StatusID.ThreeMudra))
         {
             act = null;
-
-            if (!Player.HasStatus(true, StatusID.SealedMeisui) && (MeisuiPvP.Target.Target?.GetHealthRatio() < 0.4) && MeisuiPvP.CanUse(out act)) return true;
 
             if (NoResilience && !Player.HasStatus(true, StatusID.SealedForkedRaiju) && HostileTarget.DistanceToPlayer() <= 4 && ForkedRaijuPvP.CanUse(out act)) return true;
 
             if (!Player.HasStatus(true, StatusID.SealedGokaMekkyaku) && GokaMekkyakuPvP.CanUse(out act, skipAoeCheck: true)) return true;
             if (!Player.HasStatus(true, StatusID.SealedHyoshoRanryu) && HyoshoRanryuPvP.CanUse(out act)) return true;
-
+            
             if (Player.GetHealthRatio() < 0.33)
             {
                 if (!Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
                 if (!Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
             }
 
-            if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
-            if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
+           if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedHuton) && HutonPvP.CanUse(out act)) return true;
+           if (Player.WillStatusEnd(2, true, StatusID.ThreeMudra) && !Player.HasStatus(true, StatusID.SealedMeisui) && MeisuiPvP.CanUse(out act)) return true;
 
             return false;
         }
@@ -93,7 +90,7 @@ public class NINPvP : NinjaRotation
             if (SpinningEdgePvP.CanUse(out act)) return true;
         }
 
-        if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true )&& !Player.HasStatus(true, StatusID.Hidden_1316)) return true;
+        if (FumaShurikenPvP.Cooldown.CurrentCharges > 1 && FumaShurikenPvP.CanUse(out act, usedUp: true) && !Player.HasStatus(true, StatusID.Hidden_1316)) return true; 
         if (FumaShurikenPvP.Target.Target?.GetHealthRatio() < 0.55 && FumaShurikenPvP.CanUse(out act, usedUp: true) && !Player.HasStatus(true, StatusID.Hidden_1316)) return true;
 
         return base.GeneralGCD(out act);

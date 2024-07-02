@@ -1,6 +1,6 @@
 namespace PvPRotations.Tank;
 [Rotation("War-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
-[Api(1)]
+[Api(2)]
 
 public sealed class WARPvP : WarriorRotation
 {
