@@ -1,5 +1,5 @@
 namespace PvPRotations.Ranged;
-[Rotation("Mch-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Mch-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class MCHPvP : MachinistRotation

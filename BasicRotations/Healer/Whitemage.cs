@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Whm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Whm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class WHM : WhiteMageRotation

@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Melee;
-[Rotation("Sam-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Sam-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class SAMPvP : SamuraiRotation

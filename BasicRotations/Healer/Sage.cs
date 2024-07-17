@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Sge-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Sge-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class SGEPvP : SageRotation

@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Ast-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Ast-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class ASTPvP : AstrologianRotation
@@ -39,7 +39,7 @@ public class ASTPvP : AstrologianRotation
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (DrawPvP.CanUse(out act)) return true;
-        if (DrawnCard == CardType.ARROW)
+        /*if (DrawnCard == CardType.ARROW)
         {
             if (TheArrowPvP.CanUse(out act)) return true;
             if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
@@ -54,7 +54,7 @@ public class ASTPvP : AstrologianRotation
             if (TheBolePvP.CanUse(out act)) return true;
             if (Player.WillStatusEnd(10, true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-
+        */
         if (Player.HasStatus(true, StatusID.Macrocosmos_3104))
         { 
         if (Player.WillStatusEnd(3, true, StatusID.Macrocosmos_3104) && MicrocosmosPvP.CanUse(out act, skipAoeCheck: true)) return true;

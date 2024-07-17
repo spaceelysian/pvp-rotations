@@ -1,5 +1,5 @@
 namespace PvPRotations.Ranged;
-[Rotation("Brd-pvp", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Brd-pvp", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public sealed class BRDPvP : BardRotation

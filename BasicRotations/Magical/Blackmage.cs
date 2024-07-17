@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Blm-PvP", CombatType.PvP, GameVersion = "6.58", Description = "PvP")]
+[Rotation("Blm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
 [Api(2)]
 
 public class BLMPvP : BlackMageRotation
