@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Bloops", CombatType.PvE, GameVersion = "7", Description = "Bluest mage")]
+[Rotation("Bloops", CombatType.PvE, Description = "Bluest mage")]
 [Api(2)]
 
 public class BlueMage : BlueMageRotation
@@ -8,7 +8,9 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-        
+
+        if (VeilOfTheWhorlPvE.CanUse(out act)) return true; // 49
+
         return base.EmergencyAbility(nextGCD, out act);
     }
 
@@ -77,7 +79,6 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
-        if (VeilOfTheWhorlPvE.CanUse(out act)) return true; // 49
         if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true; // 32
 
         return base.HealAreaGCD(out act);
@@ -110,6 +111,37 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
+        if (Player.HasStatus(true, StatusID.AethericMimicryTank))
+        {
+            act = null;
+
+            if (DivineCataractPvE.CanUse(out act)) return true; // 89B
+            if (ChelonianGatePvE.CanUse(out act)) return true; // 89A
+            if (DevourPvE.CanUse(out act)) return true; // 75
+            if (CactguardPvE.CanUse(out act)) return true; // 70
+
+            return true;
+        }
+
+        if (Player.HasStatus(true, StatusID.AethericMimicryHealer))
+        {
+            act = null;
+
+            if (ExuviationPvE.CanUse(out act)) return true; // 73
+            if (PomCurePvE.CanUse(out act)) return true; // 58
+
+            return true;
+        }
+
+        if (Player.HasStatus(true, StatusID.AethericMimicryDps))
+        {
+            act = null;
+
+            if (MatraMagicPvE.CanUse(out act)) return true; // 100
+
+            return true;
+        }
+
         if  (NoMF && MortalFlamePvE.CanUse(out act)) return true; // 121
         
         if (CandyCanePvE.CanUse(out act)) return true; // 120
@@ -125,14 +157,12 @@ public class BlueMage : BlueMageRotation
 
         if (WildRagePvE.CanUse(out act)) return true; // 110
         if (NoBoM && BreathOfMagicPvE.CanUse(out act)) return true; // 109
-        if (RehydrationPvE.CanUse(out act)) return true; // 108
         if (SchiltronPvE.CanUse(out act)) return true; // 107
         if (RightRoundPvE.CanUse(out act)) return true; // 106
         if (GoblinPunchPvE.CanUse(out act)) return true; // 105
 
         if (!IsLastGCD((ActionID)PeripheralSynthesisPvE.ID) && PeripheralSynthesisPvE.CanUse(out act)) return true; // 101
 
-        if (MatraMagicPvE.CanUse(out act)) return true; // 100
         if (ChocoMeteorPvE.CanUse(out act)) return true; // 99
         if (MaledictionOfWaterPvE.CanUse(out act)) return true; // 98
         if (HydroPullPvE.CanUse(out act)) return true; // 97
@@ -144,7 +174,6 @@ public class BlueMage : BlueMageRotation
         if (BasicInstinctPvE.CanUse(out act)) return true; // 91
 
         if (TheRoseOfDestructionPvE.CanUse(out act)) return true; // 90
-        if (ChelonianGatePvE.CanUse(out act)) return true; // 89
         if (AngelsSnackPvE.CanUse(out act)) return true; // 88
         if (FeculentFloodPvE.CanUse(out act)) return true; // 87
         if (SaintlyBeamPvE.CanUse(out act)) return true; // 86
@@ -157,13 +186,10 @@ public class BlueMage : BlueMageRotation
 
         if (AethericMimicryPvE.CanUse(out act)) return true; // 77
         if (CondensedLibraPvE.CanUse(out act)) return true; // 76
-        if (DevourPvE.CanUse(out act)) return true; // 75
         if (RefluxPvE.CanUse(out act)) return true; // 74
-        if (ExuviationPvE.CanUse(out act)) return true; // 73
         if (AngelWhisperPvE.CanUse(out act)) return true; // 72
         if (RevengeBlastPvE.CanUse(out act)) return true; // 71
 
-        if (CactguardPvE.CanUse(out act)) return true; // 70
         if (PerpetualRayPvE.CanUse(out act)) return true; // 69
         if (LauncherPvE.CanUse(out act)) return true; // 68
         if (Level5DeathPvE.CanUse(out act)) return true; // 67
@@ -175,7 +201,6 @@ public class BlueMage : BlueMageRotation
         if (AvailPvE.CanUse(out act)) return true; // 61
 
         if (MagicHammerPvE.CanUse(out act)) return true; // 60
-        if (PomCurePvE.CanUse(out act)) return true; // 58
         if (EerieSoundwavePvE.CanUse(out act)) return true; // 57
         if (ChirpPvE.CanUse(out act)) return true; // 56
         if (AbyssalTransfixionPvE.CanUse(out act)) return true; // 55

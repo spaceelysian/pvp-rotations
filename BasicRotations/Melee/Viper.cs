@@ -28,11 +28,6 @@ public class VPRPvP : ViperRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
 
-        if (IsLastGCD((ActionID)FirstGenerationPvP.ID) && FirstLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (IsLastGCD((ActionID)SecondGenerationPvP.ID) && SecondLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (IsLastGCD((ActionID)ThirdGenerationPvP.ID) && ThirdLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (IsLastGCD((ActionID)FourthGenerationPvP.ID) && FourthLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
         if (IsLastGCD((ActionID)UncoiledFuryPvP.ID) && UncoiledTwinfangPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (IsLastGCD((ActionID)HuntersSnapPvP.ID) && TwinfangBitePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)SwiftskinsCoilPvP.ID) && TwinbloodBitePvP.CanUse(out act)) return true;
@@ -57,17 +52,6 @@ public class VPRPvP : ViperRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
-
-        if (Player.HasStatus(true, StatusID.Reawakened_4094))
-        {
-            if (Player.WillStatusEnd(4, true, StatusID.Reawakened_4094))
-            {
-                if (OuroborosPvP.CanUse(out act, skipAoeCheck: true)) return true;
-            }
-
-            if (IsLastAction((ActionID)FourthLegacyPvP.ID) && OuroborosPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
-        }
 
         if (!Player.HasStatus(true, StatusID.Reawakened_4094))
         {
