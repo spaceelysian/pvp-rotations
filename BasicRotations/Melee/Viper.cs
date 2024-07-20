@@ -13,7 +13,11 @@ public class VPRPvP : ViperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
+
         if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
+
+        if (SnakeScalesPvP.Cooldown.IsCoolingDown && UncoiledFuryPvP.Cooldown.IsCoolingDown && RattlingCoilPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -22,6 +26,8 @@ public class VPRPvP : ViperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
+
         if (IsLastGCD((ActionID)FirstGenerationPvP.ID) && FirstLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (IsLastGCD((ActionID)SecondGenerationPvP.ID) && SecondLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (IsLastGCD((ActionID)ThirdGenerationPvP.ID) && ThirdLegacyPvP.CanUse(out act, skipAoeCheck: true)) return true;
@@ -39,6 +45,8 @@ public class VPRPvP : ViperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
+
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         return base.GeneralAbility(nextGCD, out act);
@@ -48,6 +56,7 @@ public class VPRPvP : ViperRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+        if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
 
         if (Player.HasStatus(true, StatusID.Reawakened_4094))
         {
@@ -65,7 +74,7 @@ public class VPRPvP : ViperRotation
             if (SwiftskinsCoilPvP.CanUse(out act, usedUp: true)) return true;
             if (HuntersSnapPvP.CanUse(out act, usedUp: true)) return true;
         }
-       
+
         if (UncoiledFuryPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (RavenousBitePvP.CanUse(out act)) return true;
