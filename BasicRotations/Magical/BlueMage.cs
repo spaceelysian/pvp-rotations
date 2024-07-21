@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Bloops", CombatType.PvE, Description = "Bluest mage")]
+[Rotation("Bloops", CombatType.PvE, GameVersion = "7", Description = "Bluest mage")]
 [Api(2)]
 
 public class BlueMage : BlueMageRotation
@@ -18,6 +18,8 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+        if (Player.HasStatus(true, StatusID.SurpanakhasFury) && SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78B
+
 
         if (BeingMortalPvE.CanUse(out act)) return true; // 124
         if (ApokalypsisPvE.CanUse(out act)) return true; // 123
@@ -29,7 +31,7 @@ public class BlueMage : BlueMageRotation
         if (BothEndsPvE.CanUse(out act)) return true; // 102
 
         if (QuasarPvE.CanUse(out act)) return true; // 79
-        if (SurpanakhaPvE.CanUse(out act)) return true; // 78
+        if (SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78
 
         if (GlassDancePvE.CanUse(out act)) return true; // 48
         if (ShockStrikePvE.CanUse(out act)) return true; // 47
