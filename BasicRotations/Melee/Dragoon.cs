@@ -1,6 +1,6 @@
 namespace PvPRotations.Melee;
 [Rotation("Drg-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(2)]
+[Api(3)]
 
 public class DRGPvP : DragoonRotation
 {

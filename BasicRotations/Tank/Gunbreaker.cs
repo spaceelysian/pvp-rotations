@@ -1,6 +1,6 @@
 namespace PvPRotations.Tank;
 [Rotation("Gnb-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(2)]
+[Api(3)]
 
 public sealed class GNBPvP : GunbreakerRotation
 {

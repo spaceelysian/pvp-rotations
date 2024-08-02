@@ -1,10 +1,6 @@
-using Dalamud.Game.ClientState.Objects.Enums;
-using Dalamud.Utility;
-using FFXIVClientStructs.FFXIV.Client.Game.Group;
-
 namespace PvPRotations.Healer;
 [Rotation("Sch-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(2)]
+[Api(3)]
 
 public class SCHPvP : ScholarRotation
 {
