@@ -18,7 +18,7 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-        if (Player.HasStatus(true, StatusID.SurpanakhasFury) && SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78B
+        //if (Player.HasStatus(true, StatusID.SurpanakhasFury) && SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78B
 
 
         if (BeingMortalPvE.CanUse(out act)) return true; // 124
@@ -109,9 +109,13 @@ public class BlueMage : BlueMageRotation
         var NoMF = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.MortalFlame_3643);
         var NoBB = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.DamageDown);
         var NoBoM = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.BreathOfMagic);
+        var NoD = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Dropsy_1736);
 
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
+        if (!Player.HasStatus(true, StatusID.BasicInstinct) && BasicInstinctPvE.CanUse(out act)) return true; // 91
+        if (!Player.HasStatus(true, StatusID.MightyGuard) && MightyGuardPvE.CanUse(out act)) return true; // 30
 
         if (Player.HasStatus(true, StatusID.AethericMimicryTank))
         {
@@ -173,7 +177,6 @@ public class BlueMage : BlueMageRotation
         if (IsLastGCD((ActionID)PeripheralSynthesisPvE.ID) && MustardBombPvE.CanUse(out act)) return true; // 94
         if (BlazePvE.CanUse(out act)) return true; // 93
         if (UltravibrationPvE.CanUse(out act)) return true; // 92
-        if (BasicInstinctPvE.CanUse(out act)) return true; // 91
 
         if (TheRoseOfDestructionPvE.CanUse(out act)) return true; // 90
         if (AngelsSnackPvE.CanUse(out act)) return true; // 88
@@ -226,7 +229,6 @@ public class BlueMage : BlueMageRotation
         if (TheRamsVoicePvE.CanUse(out act)) return true; // 33
         if (StickyTonguePvE.CanUse(out act)) return true; // 31
 
-        if (MightyGuardPvE.CanUse(out act)) return true; // 30
         if (DiamondbackPvE.CanUse(out act)) return true; // 29
         if (NoBB && BadBreathPvE.CanUse(out act)) return true; // 28
         if (TheLookPvE.CanUse(out act)) return true; // 27
@@ -254,8 +256,8 @@ public class BlueMage : BlueMageRotation
         if (LoomPvE.CanUse(out act)) return true; // 7
         if (HighVoltagePvE.CanUse(out act)) return true; // 6
         if (DrillCannonsPvE.CanUse(out act)) return true; // 5
-        if (FlyingFrenzyPvE.CanUse(out act)) return true; // 4
-        if (AquaBreathPvE.CanUse(out act)) return true; // 3
+        if (FlyingSardinePvE.CanUse(out act)) return true; // 4
+        if (NoD && AquaBreathPvE.CanUse(out act)) return true; // 3
         if (FlameThrowerPvE.CanUse(out act)) return true; // 2
         if (WaterCannonPvE.CanUse(out act)) return true; // 1
 

@@ -8,7 +8,12 @@ public class ASTPvP : AstrologianRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = true;
     #endregion
-   
+
+    private static void ModifyDrawPvP(ref ActionSetting setting)
+    {
+        setting.IsFriendly = true;
+    }
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -39,22 +44,22 @@ public class ASTPvP : AstrologianRotation
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
         if (DrawPvP.CanUse(out act)) return true;
-        /*if (DrawnCard == CardType.ARROW)
+        if (Player.HasStatus(true, StatusID.ArrowDrawn_3404))
         {
             if (TheArrowPvP.CanUse(out act)) return true;
             if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        if (DrawnCard == CardType.BALANCE) 
+        if (Player.HasStatus(true, StatusID.BalanceDrawn_3101))
         {
             if (TheBalancePvP.CanUse(out act)) return true;
-            if (Player.WillStatusEnd(10, true, StatusID.ArrowDrawn_3404) && TheBalancePvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.WillStatusEnd(10, true, StatusID.BalanceDrawn_3101) && TheBalancePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        if (DrawnCard == CardType.BOLE) 
+        if (Player.HasStatus(true, StatusID.BoleDrawn_3403))
         {
             if (TheBolePvP.CanUse(out act)) return true;
             if (Player.WillStatusEnd(10, true, StatusID.BoleDrawn_3403) && TheBolePvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        */
+        
         if (Player.HasStatus(true, StatusID.Macrocosmos_3104))
         { 
         if (Player.WillStatusEnd(3, true, StatusID.Macrocosmos_3104) && MicrocosmosPvP.CanUse(out act, skipAoeCheck: true)) return true;
@@ -66,12 +71,14 @@ public class ASTPvP : AstrologianRotation
 
    protected override bool GeneralGCD(out IAction? act)
    {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
         if (Player.GetHealthRatio() < 0.5 && AspectedBeneficPvP.CanUse(out act)) return true;
 
-        if (GravityIiPvP.CanUse(out act)) return true;
+        if (NoResilience && GravityIiPvP.CanUse(out act)) return true;
 
         if (FallMaleficPvP.CanUse(out act)) return true;
 
