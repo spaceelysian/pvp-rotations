@@ -34,8 +34,12 @@ public class MCHPvP : MachinistRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
-
         if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
+
+        if (AirAnchorPvP.Cooldown.CurrentCharges >= 1 || BioblasterPvP.Cooldown.CurrentCharges >= 1 || ChainSawPvP.Cooldown.CurrentCharges >= 1 || DrillPvP.Cooldown.CurrentCharges >= 1)
+        {
+            if (AnalysisPvP.Cooldown.CurrentCharges == 1 && InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act, usedUp: true)) return true;
+        }
 
         return base.GeneralAbility(nextGCD, out act);
     }
