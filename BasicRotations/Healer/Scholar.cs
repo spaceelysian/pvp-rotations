@@ -41,7 +41,7 @@ public class SCHPvP : ScholarRotation
     {
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.Resilience);
         var Bio = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.Biolysis_3089);
-        var BioEnding = CurrentTarget != null && !CurrentTarget.WillStatusEnd(14, true, StatusID.Biolysis_3089);
+        var BioEnding = CurrentTarget != null && !CurrentTarget.WillStatusEnd(13, true, StatusID.Biolysis_3089);
 
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;

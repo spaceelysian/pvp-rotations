@@ -45,6 +45,7 @@ public class NINPvP : NinjaRotation
     {
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
+
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316))
         {

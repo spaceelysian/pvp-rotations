@@ -59,6 +59,7 @@ public class VPRPvP : ViperRotation
             if (HuntersSnapPvP.CanUse(out act, usedUp: true)) return true;
         }
 
+
         if (UncoiledFuryPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (RavenousBitePvP.CanUse(out act)) return true;

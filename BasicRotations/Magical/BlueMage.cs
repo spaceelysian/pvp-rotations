@@ -18,20 +18,20 @@ public class BlueMage : BlueMageRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
+
         //if (Player.HasStatus(true, StatusID.SurpanakhasFury) && SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78B
 
-
         if (BeingMortalPvE.CanUse(out act)) return true; // 124
-        if (ApokalypsisPvE.CanUse(out act)) return true; // 123
+        //if (ApokalypsisPvE.CanUse(out act)) return true; // 123
         if (SeaShantyPvE.CanUse(out act)) return true; // 122
 
         if (NightbloomPvE.CanUse(out act)) return true; // 104
-        if (PhantomFlurryPvE_23289.CanUse(out act)) return true; // 103B
-        if (PhantomFlurryPvE.CanUse(out act)) return true; // 103A
+        //if (PhantomFlurryPvE_23289.CanUse(out act)) return true; // 103B
+        //if (PhantomFlurryPvE.CanUse(out act)) return true; // 103A
         if (BothEndsPvE.CanUse(out act)) return true; // 102
 
         if (QuasarPvE.CanUse(out act)) return true; // 79
-        if (SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78
+        //if (SurpanakhaPvE.CanUse(out act, usedUp: true)) return true; // 78
 
         if (GlassDancePvE.CanUse(out act)) return true; // 48
         if (ShockStrikePvE.CanUse(out act)) return true; // 47
@@ -60,50 +60,6 @@ public class BlueMage : BlueMageRotation
         return base.MoveForwardAbility(nextGCD, out act);
     }
 
-    protected override bool HealSingleGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        return base.HealSingleGCD(out act);
-    }
-
-    protected override bool HealAreaGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        return base.HealAreaGCD(out act);
-    }
-
-    protected override bool DefenseSingleGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true; // 32
-
-        return base.HealAreaGCD(out act);
-    }
-
-    protected override bool DefenseAreaGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        if (!Player.HasStatus(true, StatusID.Gobskin) && GobskinPvE.CanUse(out act)) return true; // 59
-
-        return base.HealAreaGCD(out act);
-    }
-
-    protected override bool MoveForwardGCD(out IAction? act)
-    {
-        act = null;
-        if (Player.HasStatus(true, StatusID.Diamondback)) return false;
-
-        return base.MoveForwardGCD(out act);
-    }
-
     protected override bool GeneralGCD(out IAction? act)
     {
         var NoMF = CurrentTarget != null && !CurrentTarget.HasStatus(true, StatusID.MortalFlame_3643);
@@ -114,38 +70,30 @@ public class BlueMage : BlueMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Diamondback)) return false;
 
-        if (!Player.HasStatus(true, StatusID.BasicInstinct) && BasicInstinctPvE.CanUse(out act)) return true; // 91
+        if (IsInDuty && !Player.HasStatus(true, StatusID.BasicInstinct) && BasicInstinctPvE.CanUse(out act)) return true; // 91
+        if (!Player.HasStatus(true, StatusID.ToadOil) && ToadOilPvE.CanUse(out act)) return true; // 32
         if (!Player.HasStatus(true, StatusID.MightyGuard) && MightyGuardPvE.CanUse(out act)) return true; // 30
 
         if (Player.HasStatus(true, StatusID.AethericMimicryTank))
         {
-            act = null;
-
-            if (DivineCataractPvE.CanUse(out act)) return true; // 89B
-            if (ChelonianGatePvE.CanUse(out act)) return true; // 89A
+            if (SchiltronPvE.CanUse(out act)) return true; // 107
+            //if (DivineCataractPvE.CanUse(out act)) return true; // 89B
+            //if (ChelonianGatePvE.CanUse(out act)) return true; // 89A
             if (DevourPvE.CanUse(out act)) return true; // 75
             if (CactguardPvE.CanUse(out act)) return true; // 70
-
-            return true;
         }
 
         if (Player.HasStatus(true, StatusID.AethericMimicryHealer))
         {
-            act = null;
-
+            if (AngelsSnackPvE.CanUse(out act)) return true; // 88
             if (ExuviationPvE.CanUse(out act)) return true; // 73
+            if (GobskinPvE.CanUse(out act) && !Player.HasStatus(true, StatusID.Gobskin)) return true; // 59
             if (PomCurePvE.CanUse(out act)) return true; // 58
-
-            return true;
         }
 
         if (Player.HasStatus(true, StatusID.AethericMimicryDps))
         {
-            act = null;
-
             if (MatraMagicPvE.CanUse(out act)) return true; // 100
-
-            return true;
         }
 
         if  (NoMF && MortalFlamePvE.CanUse(out act)) return true; // 121
@@ -161,9 +109,8 @@ public class BlueMage : BlueMageRotation
         if (DeepCleanPvE.CanUse(out act)) return true; // 112
         if (PeatPeltPvE.CanUse(out act)) return true; // 111
 
-        if (WildRagePvE.CanUse(out act)) return true; // 110
+        //if (WildRagePvE.CanUse(out act)) return true; // 110
         if (NoBoM && BreathOfMagicPvE.CanUse(out act)) return true; // 109
-        if (SchiltronPvE.CanUse(out act)) return true; // 107
         if (RightRoundPvE.CanUse(out act)) return true; // 106
         if (GoblinPunchPvE.CanUse(out act)) return true; // 105
 
@@ -176,10 +123,9 @@ public class BlueMage : BlueMageRotation
         if (DragonForcePvE.CanUse(out act)) return true; // 95
         if (IsLastGCD((ActionID)PeripheralSynthesisPvE.ID) && MustardBombPvE.CanUse(out act)) return true; // 94
         if (BlazePvE.CanUse(out act)) return true; // 93
-        if (UltravibrationPvE.CanUse(out act)) return true; // 92
+        if (IsLastGCD((ActionID)TheRamsVoicePvE.ID) && UltravibrationPvE.CanUse(out act)) return true; // 92
 
         if (TheRoseOfDestructionPvE.CanUse(out act)) return true; // 90
-        if (AngelsSnackPvE.CanUse(out act)) return true; // 88
         if (FeculentFloodPvE.CanUse(out act)) return true; // 87
         if (SaintlyBeamPvE.CanUse(out act)) return true; // 86
         if (StotramPvE_23416.CanUse(out act)) return true; // 85B
@@ -187,13 +133,13 @@ public class BlueMage : BlueMageRotation
         if (ColdFogPvE.CanUse(out act)) return true; // 84
         if (TatamigaeshiPvE.CanUse(out act)) return true; // 83
         if (TinglePvE.CanUse(out act)) return true; // 82
-        if (TripleTridentPvE.CanUse(out act)) return true; // 81
+        if (IsLastGCD((ActionID)TinglePvE.ID) && TripleTridentPvE.CanUse(out act)) return true; // 81
 
-        if (AethericMimicryPvE.CanUse(out act)) return true; // 77
+        //if (AethericMimicryPvE.CanUse(out act)) return true; // 77
         if (CondensedLibraPvE.CanUse(out act)) return true; // 76
         if (RefluxPvE.CanUse(out act)) return true; // 74
         if (AngelWhisperPvE.CanUse(out act)) return true; // 72
-        if (RevengeBlastPvE.CanUse(out act)) return true; // 71
+        //if (RevengeBlastPvE.CanUse(out act)) return true; // 71
 
         if (PerpetualRayPvE.CanUse(out act)) return true; // 69
         if (LauncherPvE.CanUse(out act)) return true; // 68
@@ -229,7 +175,7 @@ public class BlueMage : BlueMageRotation
         if (TheRamsVoicePvE.CanUse(out act)) return true; // 33
         if (StickyTonguePvE.CanUse(out act)) return true; // 31
 
-        if (DiamondbackPvE.CanUse(out act)) return true; // 29
+        //if (DiamondbackPvE.CanUse(out act)) return true; // 29
         if (NoBB && BadBreathPvE.CanUse(out act)) return true; // 28
         if (TheLookPvE.CanUse(out act)) return true; // 27
         if (_4TonzeWeightPvE.CanUse(out act)) return true; // 26
@@ -258,8 +204,8 @@ public class BlueMage : BlueMageRotation
         if (DrillCannonsPvE.CanUse(out act)) return true; // 5
         if (FlyingSardinePvE.CanUse(out act)) return true; // 4
         if (NoD && AquaBreathPvE.CanUse(out act)) return true; // 3
-        if (FlameThrowerPvE.CanUse(out act)) return true; // 2
-        if (WaterCannonPvE.CanUse(out act)) return true; // 1
+        //if (FlameThrowerPvE.CanUse(out act)) return true; // 2
+        //if (WaterCannonPvE.CanUse(out act)) return true; // 1
 
         return base.GeneralGCD(out act);
     }
