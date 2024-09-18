@@ -1,12 +1,12 @@
 namespace PvPRotations.Melee;
 [Rotation("Nin-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class NINPvP : NinjaRotation
 {
     #region Settings
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
-    public bool UseSprint { get; set; } = true;
+    public bool UseSprint { get; set; } = false;
     #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

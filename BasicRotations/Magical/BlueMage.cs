@@ -1,6 +1,6 @@
 ﻿namespace PvPRotations.Magical;
 [Rotation("Bloops", CombatType.PvE, GameVersion = "7", Description = "Bluest mage")]
-[Api(3)]
+[Api(4)]
 
 public class BlueMage : BlueMageRotation
 {

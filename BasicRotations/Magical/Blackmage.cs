@@ -1,12 +1,12 @@
 ﻿namespace PvPRotations.Magical;
 [Rotation("Blm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class BLMPvP : BlackMageRotation
 {
     #region Settings
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
-    public bool UseSprint { get; set; } = true;
+    public bool UseSprint { get; set; } = false;
     #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)

@@ -1,6 +1,6 @@
 ﻿namespace PvPRotations.Tank;
 [Rotation("Pld-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class PLDPvP : PaladinRotation
 {

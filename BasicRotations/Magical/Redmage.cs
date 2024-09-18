@@ -1,6 +1,6 @@
 namespace PvPRotations.Magical;
 [Rotation("Rdm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class RDMPvP : RedMageRotation
 {

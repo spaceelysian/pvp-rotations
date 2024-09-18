@@ -1,12 +1,12 @@
 namespace PvPRotations.Healer;
 [Rotation("Ast-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class ASTPvP : AstrologianRotation
 {
     #region Settings
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
-    public bool UseSprint { get; set; } = true;
+    public bool UseSprint { get; set; } = false;
     #endregion
 
     private static void ModifyDrawPvP(ref ActionSetting setting)

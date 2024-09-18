@@ -1,12 +1,12 @@
 ﻿namespace PvPRotations.Melee;
 [Rotation("Vpr-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public class VPRPvP : ViperRotation
 {
     #region Settings
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
-    public bool UseSprint { get; set; } = true;
+    public bool UseSprint { get; set; } = false;
     #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
@@ -27,10 +27,9 @@ public class VPRPvP : ViperRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
-
+        if (IsLastGCD((ActionID)SwiftskinsCoilPvP.ID) && TwinbloodBitePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)UncoiledFuryPvP.ID) && UncoiledTwinfangPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (IsLastGCD((ActionID)HuntersSnapPvP.ID) && TwinfangBitePvP.CanUse(out act)) return true;
-        if (IsLastGCD((ActionID)SwiftskinsCoilPvP.ID) && TwinbloodBitePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)BarbarousBitePvP.ID, (ActionID)RavenousBitePvP.ID) && DeathRattlePvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
@@ -58,7 +57,6 @@ public class VPRPvP : ViperRotation
             if (SwiftskinsCoilPvP.CanUse(out act, usedUp: true)) return true;
             if (HuntersSnapPvP.CanUse(out act, usedUp: true)) return true;
         }
-
 
         if (UncoiledFuryPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

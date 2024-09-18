@@ -1,19 +1,24 @@
 namespace PvPRotations.Tank;
 [Rotation("War-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
-[Api(3)]
+[Api(4)]
 
 public sealed class WARPvP : WarriorRotation
 {
     #region Settings
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
-    public bool UseSprint { get; set; } = true;
+    public bool UseSprint { get; set; } = false;
     #endregion
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+        var NoIR = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.InnerRelease_1303);
+
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
+
+        if (NoIR &&NoResilience && BlotaPvP.CanUse(out act) && BlotaPvP.Target.Target?.DistanceToPlayer() >= 13) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -36,11 +41,15 @@ public sealed class WARPvP : WarriorRotation
         if (Player.CurrentHp < Player.MaxHp && BloodwhettingPvP.CanUse(out act) && HasHostilesInRange) return true;
 
         return base.GeneralAbility(nextGCD, out act);
+
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (PrimalRendPvP.CanUse(out act, usedUp: true)) return true;
 
         if (Player.CurrentHp < Player.MaxHp && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
         if (Player.WillStatusEnd(6, true, StatusID.NascentChaos_1992) && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
