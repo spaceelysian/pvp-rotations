@@ -1,5 +1,5 @@
 namespace PvPRotations.Tank;
-[Rotation("Drk-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Drk-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public sealed class DRKPvP : DarkKnightRotation
@@ -19,6 +19,7 @@ public sealed class DRKPvP : DarkKnightRotation
 
         return base.EmergencyAbility(nextGCD, out act);
     }
+
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -47,7 +48,7 @@ public sealed class DRKPvP : DarkKnightRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if ((Player.CurrentHp < Player.MaxHp) && QuietusPvP.CanUse(out act)) return true;
+        if ((Player.CurrentHp < Player.MaxHp) && ImpalementPvP.CanUse(out act)) return true;
 
         if (SouleaterPvP.CanUse(out act)) return true;
         if (SyphonStrikePvP.CanUse(out act)) return true;

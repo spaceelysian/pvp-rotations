@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Melee;
-[Rotation("Vpr-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Vpr-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class VPRPvP : ViperRotation
@@ -27,10 +27,10 @@ public class VPRPvP : ViperRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
-        if (IsLastGCD((ActionID)SwiftskinsCoilPvP.ID) && TwinbloodBitePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)UncoiledFuryPvP.ID) && UncoiledTwinfangPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (IsLastGCD((ActionID)HuntersSnapPvP.ID) && TwinfangBitePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)BarbarousBitePvP.ID, (ActionID)RavenousBitePvP.ID) && DeathRattlePvP.CanUse(out act)) return true;
+        if (IsLastGCD((ActionID)BloodcoilPvP.ID) && TwinfangBitePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (IsLastGCD((ActionID)SanguineFeastPvP.ID) && TwinbloodBitePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -52,11 +52,8 @@ public class VPRPvP : ViperRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.HardenedScales)) return false;
 
-        if (!Player.HasStatus(true, StatusID.Reawakened_4094))
-        {
-            if (SwiftskinsCoilPvP.CanUse(out act, usedUp: true)) return true;
-            if (HuntersSnapPvP.CanUse(out act, usedUp: true)) return true;
-        }
+        if (SanguineFeastPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BloodcoilPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (UncoiledFuryPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

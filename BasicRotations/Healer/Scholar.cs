@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Sch-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Sch-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class SCHPvP : ScholarRotation
@@ -8,7 +8,6 @@ public class SCHPvP : ScholarRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = false;
     #endregion
-
     #region Deployment Tactics
     public IBaseAction DeploymentTactics => Deploy.Value;
 
@@ -26,7 +25,6 @@ public class SCHPvP : ScholarRotation
         setting.TargetStatusNeed = [StatusID.Biolysis_3089];
     }
     #endregion
-
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
@@ -46,7 +44,6 @@ public class SCHPvP : ScholarRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (NoResilience && MummificationPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (Bio && BioEnding && !IsLastAction((ActionID)DeploymentTacticsPvP.ID) && DeploymentTacticsPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         return base.AttackAbility(nextGCD,out act);

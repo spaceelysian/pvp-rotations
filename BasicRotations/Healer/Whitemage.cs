@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Whm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Whm-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class WHM : WhiteMageRotation
@@ -39,6 +39,7 @@ public class WHM : WhiteMageRotation
 
         return base.GeneralAbility(nextGCD, out act);
     }
+
     protected override bool GeneralGCD(out IAction? act)
     {
         act = null;
@@ -52,9 +53,11 @@ public class WHM : WhiteMageRotation
 
         if (AfflatusMiseryPvP.CanUse(out act, skipAoeCheck:true)) return true;
 
+        if (Player.HasStatus(true, StatusID.SacredSight_4326) && GlareIvPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         if (GlareIiiPvP.CanUse(out act)) return true;
 
-        if (CureIiPvP.CanUse(out act) && CureIiPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
+        //if (CureIiPvP.CanUse(out act) && CureIiPvP.Target.Target?.GetHealthRatio() < 0.75) return true;
 
         return base.GeneralGCD(out act);
     }

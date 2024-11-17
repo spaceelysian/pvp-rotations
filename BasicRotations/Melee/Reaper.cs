@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Melee;
-[Rotation("Rpr-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Rpr-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public sealed class RPRPvP : ReaperRotation
@@ -58,8 +58,9 @@ public sealed class RPRPvP : ReaperRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
         if (PlentifulHarvestPvP.CanUse(out act)) return true;
+
+        //if (ExecutionersGuillotinePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (InfernalSlicePvP.CanUse(out act)) return true;
         if (WaxingSlicePvP.CanUse(out act)) return true;

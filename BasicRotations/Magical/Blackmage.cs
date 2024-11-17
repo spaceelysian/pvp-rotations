@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Blm-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Blm-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class BLMPvP : BlackMageRotation
@@ -20,18 +20,6 @@ public class BLMPvP : BlackMageRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        var Astral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.AstralWarmth) == 3;
-        var Umbral = CurrentTarget != null && CurrentTarget.StatusStack(true, StatusID.UmbralFreeze) == 3;
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
-        act = null;
-        if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true) && Astral) return true;
-  
-        if (NoResilience && Umbral && SuperflarePvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-
-        if (NightWingPvP.CanUse(out act)) return true;
-
         return base.AttackAbility(nextGCD, out act);
     }
 
@@ -41,6 +29,10 @@ public class BLMPvP : BlackMageRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
+        if (Player.HasStatus(true, StatusID.AstralFire_3212, StatusID.AstralFireIi_3213, StatusID.AstralFireIii_3381) && WreathOfFirePvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < .99 && Player.HasStatus(true, StatusID.UmbralIce_3214, StatusID.UmbralIceIi_3215, StatusID.UmbralIceIii_3382) && WreathOfIcePvP.CanUse(out act)) return true;
+
+
         return base.GeneralAbility(nextGCD, out act);
     }
 
@@ -49,21 +41,22 @@ public class BLMPvP : BlackMageRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (Player.HasStatus(true, StatusID.Swiftcast_1325) && BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 5) return true;
 
-        //if (BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 3) return true;
+        if (Player.HasStatus(true, StatusID.Paradox) && ParadoxPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        /*if (HostileTarget.StatusStack(true, StatusID.UmbralFreeze) == 1)
-        {
-            if (ParadoxPvP.CanUse(out act)) return true;
-        }
+        if (BurstPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 4) return true;
 
-        if (Player.HasStatus(true, StatusID.UmbralIceIii_3382) && FreezePvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (Player.HasStatus(true, StatusID.UmbralIceIi_3215) && BlizzardIvPvP.CanUse(out act)) return true;
-      
-        if (Player.HasStatus(true, StatusID.AstralFireIii_3381) && FlarePvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (Player.HasStatus(true, StatusID.AstralFireIi_3213) &&  FireIvPvP.CanUse(out act)) return true;
-        */
+        if (XenoglossyPvP.CanUse(out act)) return true;
+        if (Player.GetHealthRatio() < 0.5 && XenoglossyPvP.CanUse(out act, usedUp:true)) return true;
+        if (IsMoving && XenoglossyPvP.CanUse(out act, usedUp: true)) return true;
+
+        if (Player.HasStatus(true, StatusID.AstralFire_3212) && FireIiiPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.AstralFireIi_3213) && FireIvPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.AstralFireIii_3381) && HighFireIiPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (Player.HasStatus(true, StatusID.UmbralIce_3214) && BlizzardIiiPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.UmbralIceIi_3215) && BlizzardIvPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.UmbralIceIii_3382) && HighBlizzardIiPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }

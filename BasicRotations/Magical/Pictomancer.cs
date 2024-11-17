@@ -1,5 +1,5 @@
 namespace PvPRotations.Magical;
-[Rotation("Pct-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Pct-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class PCTPvP : PictomancerRotation
@@ -60,7 +60,6 @@ public class PCTPvP : PictomancerRotation
         if (Player.HasStatus(true, StatusID.ClawSketch) && ClawMotifPvP.CanUse(out act)) return true;
         if (Player.HasStatus(true, StatusID.PomSketch) && PomMotifPvP.CanUse(out act)) return true;
 
-
         if (Player.HasStatus(true, StatusID.SubtractivePalette_4102))
         {
             act = null;
@@ -74,6 +73,8 @@ public class PCTPvP : PictomancerRotation
 
         if (Player.HasStatus(true, StatusID.AetherhuesIi_4101) && WaterInBluePvP.CanUse(out act)) return true;
         if (Player.HasStatus(true, StatusID.Aetherhues_4100) && AeroInGreenPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.Starstruck_4118) && StarPrismPvP.CanUse(out act)) return true;
+
         if (FireInRedPvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

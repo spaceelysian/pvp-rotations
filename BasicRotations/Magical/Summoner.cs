@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Magical;
-[Rotation("Smn-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Smn-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class SMNPvP : SummonerRotation
@@ -22,25 +22,14 @@ public class SMNPvP : SummonerRotation
 
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
-        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (FesterPvP.CanUse(out act, usedUp: true) && FesterPvP.Target.Target?.GetHealthRatio() < 0.5) return true;
-
-        if (FesterPvP.Cooldown.CurrentCharges == 2 && FesterPvP.CanUse(out act)) return true;
-
-        if (NoResilience && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
-
-        if (Player.HasStatus(true,StatusID.DreadwyrmTrance_3228))
+        if (!Player.HasStatus(true, StatusID.DreadwyrmTrance_3228, StatusID.FirebirdTrance))
         {
-            if (EnkindleBahamutPvP.CanUse(out act)) return true;
+            if (!Player.HasStatus(true, StatusID.FurtherRuin_4399) && NecrotizePvP.CanUse(out act)) return true;
+            if (IsMoving && !Player.HasStatus(true, StatusID.FurtherRuin_4399) && NecrotizePvP.CanUse(out act, usedUp: true)) return true;
         }
 
-        if (Player.HasStatus(true, StatusID.FirebirdTrance))
-        {
-            if (EnkindlePhoenixPvP.CanUse(out act)) return true;
-        }
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -56,13 +45,21 @@ public class SMNPvP : SummonerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
+
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (IsLastGCD((ActionID)CrimsonCyclonePvP.ID) && CrimsonStrikePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!Player.HasStatus(true, StatusID.DreadwyrmTrance_3228, StatusID.FirebirdTrance))
+        {
+            if (Player.HasStatus(true, StatusID.CrimsonStrikeReady) && CrimsonStrikePvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (SlipstreamPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (NoResilience && MountainBusterPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
+            if (SlipstreamPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
+        if (Player.HasStatus(true, StatusID.FurtherRuin_4399) && RuinIvPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (RuinIiiPvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

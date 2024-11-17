@@ -1,5 +1,5 @@
 namespace PvPRotations.Healer;
-[Rotation("Sge-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Sge-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class SGEPvP : SageRotation
@@ -47,7 +47,8 @@ public class SGEPvP : SageRotation
 
         if (PneumaPvP.CanUse(out act)) return true;
 
-        if (PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+        if (PsychePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (PhlegmaIiiPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (DosisIiiPvP.CanUse(out act)) return true;
 

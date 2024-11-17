@@ -1,5 +1,5 @@
 namespace PvPRotations.Tank;
-[Rotation("War-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("War-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public sealed class WARPvP : WarriorRotation
@@ -18,7 +18,7 @@ public sealed class WARPvP : WarriorRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
-        if (NoIR &&NoResilience && BlotaPvP.CanUse(out act) && BlotaPvP.Target.Target?.DistanceToPlayer() >= 13) return true;
+        //if (NoIR && NoResilience && BlotaPvP.CanUse(out act) && BlotaPvP.Target.Target?.DistanceToPlayer() >= 13) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -32,6 +32,7 @@ public sealed class WARPvP : WarriorRotation
 
         return base.AttackAbility(nextGCD, out act);
     }
+
     protected override bool GeneralAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -49,10 +50,10 @@ public sealed class WARPvP : WarriorRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (PrimalRendPvP.CanUse(out act, usedUp: true)) return true;
+        if (Player.HasStatus(true, StatusID.InnerRelease_1303) && PrimalRendPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (Player.CurrentHp < Player.MaxHp && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
-        if (Player.WillStatusEnd(6, true, StatusID.NascentChaos_1992) && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+        if (Player.HasStatus(true, StatusID.ChaoticCycloneReady) && Player.CurrentHp < Player.MaxHp && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
+        if (Player.HasStatus(true, StatusID.PrimalRuinationReady_4285) && PrimalRuinationPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (StormsPathPvP.CanUse(out act)) return true;
         if (MaimPvP.CanUse(out act)) return true;

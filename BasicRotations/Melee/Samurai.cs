@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Melee;
-[Rotation("Sam-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Sam-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class SAMPvP : SamuraiRotation
@@ -8,6 +8,7 @@ public class SAMPvP : SamuraiRotation
     [RotationConfig(CombatType.PvP, Name = "Use Sprint out of combat?")]
     public bool UseSprint { get; set; } = false;
     #endregion
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         act = null;
@@ -24,6 +25,8 @@ public class SAMPvP : SamuraiRotation
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+
+        if (Player.HasStatus(true, StatusID.ZanshinReady) && ZanshinPvP.CanUse(out act)) return true;
 
         if (NoResilience && MineuchiPvP.CanUse(out act)) return true;
 
@@ -46,11 +49,11 @@ public class SAMPvP : SamuraiRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (OgiNamikiriPvP.Cooldown.IsCoolingDown && IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act)) return true;
-
-        if (Player.HasStatus(true, StatusID.Midare) && MidareSetsugekkaPvP.CanUse(out act)) return true;
-
+        if (OgiNamikiriPvP.Cooldown.IsCoolingDown && IsLastGCD((ActionID)OgiNamikiriPvP.ID) && KaeshiNamikiriPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (OgiNamikiriPvP.CanUse(out act)) return true;
+
+        if (!IsLastGCD((ActionID)OgiNamikiriPvP.ID) && Player.HasStatus(true, StatusID.TendoSetsugekkaReady) && TendoSetsugekkaPvP.CanUse(out act)) return true;
+        if (IsLastGCD((ActionID)TendoSetsugekkaPvP.ID) && TendoKaeshiSetsugekkaPvP.CanUse(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.Kaiten_3201))
         {

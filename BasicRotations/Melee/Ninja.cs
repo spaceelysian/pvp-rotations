@@ -1,5 +1,5 @@
 namespace PvPRotations.Melee;
-[Rotation("Nin-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Nin-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class NINPvP : NinjaRotation
@@ -25,7 +25,6 @@ public class NINPvP : NinjaRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
 
-        if (!Player.HasStatus(true, StatusID.ThreeMudra) && FumaShurikenPvP.Cooldown.CurrentCharges <= 1 && MugPvP.CanUse(out act)) return true;
         return base.AttackAbility(nextGCD, out act);
     }
 

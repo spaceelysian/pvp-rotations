@@ -1,5 +1,5 @@
 ﻿namespace PvPRotations.Tank;
-[Rotation("Pld-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Pld-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class PLDPvP : PaladinRotation
@@ -15,20 +15,17 @@ public class PLDPvP : PaladinRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
-        if (GuardianPvP.Target.Target?.GetHealthRatio() < 0.3 && GuardianPvP.CanUse(out act)) return true;
+        //if (GuardianPvP.Target.Target?.GetHealthRatio() < 0.3 && GuardianPvP.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
+
     protected override bool AttackAbility(IAction nextGCD, out IAction? act)
     {
         var NoResilience = CurrentTarget != null && !CurrentTarget.HasStatus(false, StatusID.Resilience);
         var SacredClaim = CurrentTarget != null && CurrentTarget.HasStatus(true, StatusID.SacredClaim);
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
-
-        if (NoResilience && SacredClaim && ShieldBashPvP.CanUse(out act)) return true;
-
-        if (SacredClaim && IntervenePvP.CanUse(out act) && HostileTarget.DistanceToPlayer() < 5) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -49,7 +46,16 @@ public class PLDPvP : PaladinRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
-        if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (ShieldSmitePvP.CanUse(out act)) return true;
+
+        if (ImperatorPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.ConfiteorReady_3028) && ConfiteorPvP.CanUse(out act)) return true;
+
+        if ((Player.CurrentHp < Player.MaxHp) && HolySpiritPvP.CanUse(out act)) return true;
+
+        if (Player.HasStatus(true, StatusID.AtonementReady_2015) && AtonementPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.SupplicationReady_4281) && SupplicationPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.SepulchreReady_4282) && SepulchrePvP.CanUse(out act)) return true;
 
         if (RoyalAuthorityPvP.CanUse(out act)) return true;
         if (RiotBladePvP.CanUse(out act)) return true;

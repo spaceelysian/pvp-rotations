@@ -1,5 +1,5 @@
 namespace PvPRotations.Melee;
-[Rotation("Drg-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Drg-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class DRGPvP : DragoonRotation
@@ -30,7 +30,7 @@ public class DRGPvP : DragoonRotation
             if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (Player.WillStatusEnd(2, true, StatusID.LifeOfTheDragon))
+        if (Player.HasStatus(true, StatusID.LifeOfTheDragon) && Player.WillStatusEnd(2, true, StatusID.LifeOfTheDragon))
         {
             if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
@@ -54,6 +54,8 @@ public class DRGPvP : DragoonRotation
 
         if (Player.HasStatus(true, StatusID.FirstmindsFocus) && WyrmwindThrustPvP.CanUse(out act, skipAoeCheck:true)) return true;
 
+        if (Player.HasStatus(true, StatusID.StarcrossReady_4302) && StarcrossPvP.CanUse(out act)) return true;
+
         if (Player.HasStatus(true, StatusID.LifeOfTheDragon))
         {
             if ((Player.CurrentHp < Player.MaxHp) && ChaoticSpringPvP.CanUse(out act)) return true;
@@ -61,6 +63,7 @@ public class DRGPvP : DragoonRotation
 
         if (Player.GetHealthRatio() < 0.2 && ChaoticSpringPvP.CanUse(out act)) return true;
 
+        if (DrakesbanePvP.CanUse(out act)) return true;
         if (WheelingThrustPvP.CanUse(out act)) return true;
         if (FangAndClawPvP.CanUse(out act)) return true;
         if (RaidenThrustPvP.CanUse(out act)) return true;

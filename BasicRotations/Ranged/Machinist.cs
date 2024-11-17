@@ -1,5 +1,5 @@
 namespace PvPRotations.Ranged;
-[Rotation("Mch-PvP", CombatType.PvP, GameVersion = "7", Description = "PvP")]
+[Rotation("Mch-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
 
 public class MCHPvP : MachinistRotation
@@ -34,12 +34,12 @@ public class MCHPvP : MachinistRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (UseSprint) { if (!InCombat && SprintPvP.CanUse(out act)) return true; }
 
-        if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true;
+       if (!Player.HasStatus(true, StatusID.Analysis)) { if (InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act)) return true; }
 
-        if (AirAnchorPvP.Cooldown.CurrentCharges >= 1 || BioblasterPvP.Cooldown.CurrentCharges >= 1 || ChainSawPvP.Cooldown.CurrentCharges >= 1 || DrillPvP.Cooldown.CurrentCharges >= 1)
-        {
-            if (AnalysisPvP.Cooldown.CurrentCharges == 1 && InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act, usedUp: true)) return true;
-        }
+       // if (AirAnchorPvP.Cooldown.CurrentCharges >= 1 || BioblasterPvP.Cooldown.CurrentCharges >= 1 || ChainSawPvP.Cooldown.CurrentCharges >= 1 || DrillPvP.Cooldown.CurrentCharges >= 1)
+       // {
+       //    if (!IsLastAbility((ActionID)AnalysisPvP.ID) && AnalysisPvP.Cooldown.CurrentCharges == 1 && InCombat && !Player.HasStatus(true, StatusID.Overheated_3149) && AnalysisPvP.CanUse(out act, usedUp: true)) return true;
+       // }
 
         return base.GeneralAbility(nextGCD, out act);
     }
@@ -68,13 +68,15 @@ public class MCHPvP : MachinistRotation
         if (Player.HasStatus(true, StatusID.Overheated_3149))
         {
             act = null;
+            if (FullMetalFieldPvP.CanUse(out act)) return true;
             if (WildfirePvP.CanUse(out act)) return true;
             if (WildfirePvP.IsInCooldown)
             {
-                if (HeatBlastPvP.CanUse(out act)) return true;
+                if (BlazingShotPvP.CanUse(out act)) return true;
             }
             return false;
         }
+
 
         if (BlastChargePvP.CanUse(out act)) return true;
 
