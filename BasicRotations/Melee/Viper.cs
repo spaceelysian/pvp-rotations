@@ -31,7 +31,7 @@ public class VPRPvP : ViperRotation
         if (IsLastGCD((ActionID)BarbarousBitePvP.ID, (ActionID)RavenousBitePvP.ID) && DeathRattlePvP.CanUse(out act)) return true;
         if (IsLastGCD((ActionID)BloodcoilPvP.ID) && TwinfangBitePvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (IsLastGCD((ActionID)SanguineFeastPvP.ID) && TwinbloodBitePvP.CanUse(out act, skipAoeCheck: true)) return true;
-
+        if (UncoiledTwinbloodPvP.CanUse(out act, skipAoeCheck: true)) return true;
         return base.AttackAbility(nextGCD, out act);
     }
 

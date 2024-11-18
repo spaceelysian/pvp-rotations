@@ -24,6 +24,7 @@ public class SMNPvP : SummonerRotation
     {
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
+       
         if (!Player.HasStatus(true, StatusID.DreadwyrmTrance_3228, StatusID.FirebirdTrance))
         {
             if (!Player.HasStatus(true, StatusID.FurtherRuin_4399) && NecrotizePvP.CanUse(out act)) return true;

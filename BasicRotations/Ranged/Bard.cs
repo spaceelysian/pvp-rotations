@@ -58,6 +58,8 @@ public sealed class BRDPvP : BardRotation
             if (HarmonicArrowPvP_41964.CanUse(out act)) return true;
         }
 
+        if (HostileTarget.DistanceToPlayer() <= 4 && BlastArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.WillStatusEndGCD(2, 3, true, StatusID.BlastArrowReady_3142) && BlastArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (BlastArrowPvP.CanUse(out act)) return true;
         if (ApexArrowPvP.CanUse(out act)) return true;
 

@@ -15,7 +15,7 @@ public sealed class MNKPvP : MonkRotation
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.GetHealthRatio() < 0.7 && RecuperatePvP.CanUse(out act)) return true;
 
-        if (nextGCD.IsTheSameTo(true, PhantomRushPvP) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+        if (nextGCD.IsTheSameTo(true, PhantomRushPvP) && !Player.HasStatus(true, StatusID.FiresRumination_4301) && RisingPhoenixPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
 
         if ((Player.CurrentHp < Player.MaxHp) && RiddleOfEarthPvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;
 
@@ -50,10 +50,12 @@ public sealed class MNKPvP : MonkRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
+        if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-
-        if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true, skipComboCheck: true)) return true;
-
+        if (Player.HasStatus(true, StatusID.FireResonance))
+        {
+            if (PhantomRushPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         if (Player.HasStatus(true, StatusID.FiresRumination_4301))
         {

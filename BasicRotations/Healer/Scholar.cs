@@ -73,6 +73,8 @@ public class SCHPvP : ScholarRotation
             if (BiolysisPvP.CanUse(out act)) return true;
         }
 
+        if ((Player.HasStatus(true, StatusID.Seraphism_4327) && AccessionPvP.CanUse(out act, skipAoeCheck: true))) return true;
+
         if (BroilIvPvP.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

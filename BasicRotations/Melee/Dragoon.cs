@@ -1,3 +1,5 @@
+using RotationSolver.Basic.Helpers;
+
 namespace PvPRotations.Melee;
 [Rotation("Drg-PvP", CombatType.PvP, GameVersion = "7.1", Description = "PvP")]
 [Api(4)]
@@ -30,9 +32,9 @@ public class DRGPvP : DragoonRotation
             if (GeirskogulPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (Player.HasStatus(true, StatusID.LifeOfTheDragon) && Player.WillStatusEnd(2, true, StatusID.LifeOfTheDragon))
+        if (Player.HasStatus(true, StatusID.LifeOfTheDragon))
         {
-            if (NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.WillStatusEnd(3, true, StatusID.LifeOfTheDragon) && NastrondPvP.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         return base.AttackAbility(nextGCD, out act);

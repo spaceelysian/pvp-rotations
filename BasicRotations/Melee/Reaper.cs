@@ -60,8 +60,6 @@ public sealed class RPRPvP : ReaperRotation
 
         if (PlentifulHarvestPvP.CanUse(out act)) return true;
 
-        //if (ExecutionersGuillotinePvP.CanUse(out act, skipAoeCheck: true)) return true;
-
         if (InfernalSlicePvP.CanUse(out act)) return true;
         if (WaxingSlicePvP.CanUse(out act)) return true;
         if (SlicePvP.CanUse(out act)) return true;

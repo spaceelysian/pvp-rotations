@@ -25,11 +25,11 @@ public sealed class GNBPvP : GunbreakerRotation
 
         if (BlastingZonePvP.CanUse(out act)) return true;
 
-        if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.ReadyToRip_2002) && JugularRipPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.ReadyToTear_2003) && AbdomenTearPvP.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.ReadyToGouge_2004) && EyeGougePvP.CanUse(out act)) return true;
 
-        if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.HasStatus(true, StatusID.ReadyToBlast_3041) && HypervelocityPvP.CanUse(out act)) return true;
         if (Player.HasStatus(true, StatusID.ReadyToRaze_4293) && FatedBrandPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(nextGCD, out act);
@@ -52,8 +52,8 @@ public sealed class GNBPvP : GunbreakerRotation
 
         if (GnashingFangPvP.Cooldown.IsCoolingDown)
         {
-            if (IsLastGCD((ActionID)SavageClawPvP.ID) && WickedTalonPvP.CanUse(out act, skipComboCheck: true)) return true;
-            if (IsLastGCD((ActionID)GnashingFangPvP.ID) && SavageClawPvP.CanUse(out act, skipComboCheck: true)) return true;
+            if (IsLastGCD((ActionID)SavageClawPvP.ID) && WickedTalonPvP.CanUse(out act)) return true;
+            if (IsLastGCD((ActionID)GnashingFangPvP.ID) && SavageClawPvP.CanUse(out act)) return true;
         }
 
         if (Player.HasStatus(true, StatusID.NoMercy_3042) && GnashingFangPvP.CanUse(out act)) return true;

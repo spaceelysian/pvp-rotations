@@ -50,6 +50,8 @@ public sealed class WARPvP : WarriorRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
 
+        if (Player.HasStatus(true, StatusID.InnerChaosReady) && InnerChaosPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         if (Player.HasStatus(true, StatusID.InnerRelease_1303) && PrimalRendPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (Player.HasStatus(true, StatusID.ChaoticCycloneReady) && Player.CurrentHp < Player.MaxHp && ChaoticCyclonePvP.CanUse(out act, skipAoeCheck: true) && HasHostilesInRange) return true;

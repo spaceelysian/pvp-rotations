@@ -24,6 +24,7 @@ public class NINPvP : NinjaRotation
         act = null;
         if (Player.HasStatus(true, StatusID.Guard)) return false;
         if (Player.HasStatus(true, StatusID.Hidden_1316)) return false;
+        if (DokumoriPvP.CanUse(out act)) return true;
 
         return base.AttackAbility(nextGCD, out act);
     }
@@ -52,7 +53,9 @@ public class NINPvP : NinjaRotation
             if (AssassinatePvP.CanUse(out act)) return true;
             return false;
         }
-        
+
+        if (Player.HasStatus(true, StatusID.ZeshoMeppoReady) && ZeshoMeppoPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
         if (Player.HasStatus(true, StatusID.ThreeMudra))
         {
             act = null;
